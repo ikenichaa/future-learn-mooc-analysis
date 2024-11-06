@@ -116,7 +116,7 @@ common_scale <- scale_fill_manual(
     )
 )
 
-a_3 <- archetype_counts |> filter(Run=="3") |> 
+a_3 <- archetype_counts |> filter(run=="3") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) + 
     geom_bar(stat='identity') +
     common_theme +
@@ -127,7 +127,7 @@ a_3 <- archetype_counts |> filter(Run=="3") |>
         title = "Run 3"
     )
 
-a_4 <- archetype_counts |> filter(Run=="4") |> 
+a_4 <- archetype_counts |> filter(run=="4") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) + 
     geom_bar(stat='identity') +
     common_theme +
@@ -138,7 +138,7 @@ a_4 <- archetype_counts |> filter(Run=="4") |>
         title = "Run 4"
     )
 
-a_5 <- archetype_counts |> filter(Run=="5") |> 
+a_5 <- archetype_counts |> filter(run=="5") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) + 
     geom_bar(stat='identity') +
     common_theme +
@@ -149,7 +149,7 @@ a_5 <- archetype_counts |> filter(Run=="5") |>
         title = "Run 5"
     )
 
-a_6 <- archetype_counts |> filter(Run=="6") |> 
+a_6 <- archetype_counts |> filter(run=="6") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) + 
     geom_bar(stat='identity') +
     common_theme +
@@ -161,7 +161,7 @@ a_6 <- archetype_counts |> filter(Run=="6") |>
     )
 
 a_7 <- archetype_counts |> 
-    filter(Run=="7") |> 
+    filter(run=="7") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) +
     common_theme +
     geom_bar(stat='identity') +
@@ -212,3 +212,27 @@ enroll_and_response_df <- data.frame(Enrollment=enroll_num_prettify, Response_Su
 rownames(enroll_and_response_df) <- c('Run 1', 'Run 2', 'Run 3', 'Run 4', 'Run 5', 'Run 6', 'Run 7')
 kable(enroll_and_response_df)
 ```
+
+## 3. Data Preparation
+## 3.1 Select Data
+1. Activity Step
+This data is going to be used as a criteria on finding successful learner. As mentioned before, the learner is considered to complete the course if they completed more than 80% of the steps in the module. To check that, the learner_id, week_number, step_number, and last_completed_at will be used.
+
+2. Enrollment
+The enrollment data is used just for the exploratory purpose and to understand learners more. There is no direct use to answer the main questions on the archetype for this round.
+
+3. Archetype
+This table is another main table that will be used along with the activity step. It is needed to know the learner archetype. There are two column being used, learner_id and archetype.
+
+
+## 3.2 Clean Data
+The data selected is quite clean, so we are going to clean it just by select the fields needed and keep only the unique rows
+
+## 3.3 Construct Data
+After selected the field, new table is created from attributes in the activity step data set. This new table calls *learner_progress* contains learner progress and the archetype. Firstly, it is done by counting the number of steps each learner finished. Then, the percentage of the steps done is calculated and store in a new field. Later, there is an attribute called *finish* that stores boolean of whether the steps are complete more than 80%, which is the threshold for the completion of the course in this report.
+
+## 3.4 Integrate Data
+Afterwards, the *learner_progress* table is merged with the archetype table by *learner_id* to show the type of each learner if any. This new table is called *learner_progress_archetype*
+
+## 4. Modelling
+

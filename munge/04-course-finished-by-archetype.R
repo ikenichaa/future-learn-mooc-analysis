@@ -15,40 +15,47 @@ activity_1_learner_progress_archetype <- activity_1 |>
     count(learner_id) |>
     rename(steps_finished = 2) |>
     mutate(finish_percentage = percentage_of_course_success(steps_finished, steps_in_course_1)) |>
-    merge(y=archetype, by="learner_id", all.x=TRUE)
+    mutate(finish = finish_percentage>80) |>
+    merge(y=arch_1, by="learner_id", all.x=TRUE)
 
 activity_2_learner_progress_archetype <- activity_2 |>
     count(learner_id) |>
     rename(steps_finished = 2) |>
     mutate(finish_percentage = percentage_of_course_success(steps_finished, steps_in_course_2)) |>
-    merge(y=archetype, by="learner_id", all.x=TRUE)
+    mutate(finish = finish_percentage>80) |>
+    merge(y=arch_2, by="learner_id", all.x=TRUE)
 
 activity_3_learner_progress_archetype <- activity_3 |>
     count(learner_id) |>
     rename(steps_finished = 2) |>
     mutate(finish_percentage = percentage_of_course_success(steps_finished, steps_in_course_3)) |>
-    merge(y=archetype, by="learner_id", all.x=TRUE)
+    mutate(finish = finish_percentage>80) |>
+    merge(y=arch_3, by="learner_id", all.x=TRUE)
 
 activity_4_learner_progress_archetype <- activity_4 |>
     count(learner_id) |>
     rename(steps_finished = 2) |>
     mutate(finish_percentage = percentage_of_course_success(steps_finished, steps_in_course_4)) |>
-    merge(y=archetype, by="learner_id", all.x=TRUE)
+    mutate(finish = finish_percentage>80) |>
+    merge(y=arch_4, by="learner_id", all.x=TRUE)
 
 activity_5_learner_progress_archetype <- activity_5 |>
     count(learner_id) |>
     rename(steps_finished = 2) |>
     mutate(finish_percentage = percentage_of_course_success(steps_finished, steps_in_course_5)) |>
-    merge(y=archetype, by="learner_id", all.x=TRUE)
+    mutate(finish = finish_percentage>80) |>
+    merge(y=arch_5, by="learner_id", all.x=TRUE)
 
 activity_6_learner_progress_archetype <- activity_6 |>
     count(learner_id) |>
     rename(steps_finished = 2) |>
     mutate(finish_percentage = percentage_of_course_success(steps_finished, steps_in_course_6)) |>
-    merge(y=archetype, by="learner_id", all.x=TRUE)
+    mutate(finish = finish_percentage>80) |>
+    merge(y=arch_6, by="learner_id", all.x=TRUE)
 
 activity_7_learner_progress_archetype <- activity_7 |>
     count(learner_id) |>
     rename(steps_finished = 2) |>
     mutate(finish_percentage = percentage_of_course_success(steps_finished, steps_in_course_7)) |>
-    merge(y=archetype, by="learner_id", all.x=TRUE)
+    mutate(finish = finish_percentage>80) |>
+    merge(y=arch_7, by="learner_id", all.x=TRUE)

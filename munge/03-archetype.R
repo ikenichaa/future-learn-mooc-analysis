@@ -14,18 +14,18 @@ arch_5 <- arch_5[, c('learner_id', 'archetype')]
 arch_6 <- arch_6[, c('learner_id', 'archetype')]
 arch_7 <- arch_7[, c('learner_id', 'archetype')]
 
-arch_1$Run <- "1"
-arch_2$Run <- "2"
-arch_3$Run <- "3"
-arch_4$Run <- "4"
-arch_5$Run <- "5"
-arch_6$Run <- "6"
-arch_7$Run <- "7"
+arch_1$run <- "1"
+arch_2$run <- "2"
+arch_3$run <- "3"
+arch_4$run <- "4"
+arch_5$run <- "5"
+arch_6$run <- "6"
+arch_7$run <- "7"
 
 archetype <- rbind(arch_1, arch_2, arch_3, arch_4, arch_5, arch_6, arch_7)
 
 archetype_counts <- archetype %>%
-    group_by(Run, archetype) %>%
+    group_by(run, archetype) %>%
     summarise(count = n(), .groups = 'drop')
 
 archetype_str <- c('Advancers', 'Explorers', 'Fixers', 'Flourishers', 'Hobbyists',
@@ -34,11 +34,10 @@ archetype_str <- c('Advancers', 'Explorers', 'Fixers', 'Flourishers', 'Hobbyists
 run <- c('1', '2', '3', '4', '5', '6')
 
 for (r in run) {
-    print(r)
     for (a in archetype_str) {
-        missing_row <- nrow(archetype_counts |> filter(Run == r & archetype == a )) == 0
+        missing_row <- nrow(archetype_counts |> filter(run == r & archetype == a )) == 0
         if (missing_row) {
-            archetype_counts <- archetype_counts |> add_row(Run = r, archetype = a, count = 0)
+            archetype_counts <- archetype_counts |> add_row(run = r, archetype = a, count = 0)
         }
     }
 }
