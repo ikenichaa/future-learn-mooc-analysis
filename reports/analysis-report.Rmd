@@ -43,7 +43,172 @@ If archetype is significant to the MOOC finish rate, there should be a huge diff
 
 # 2. Data Understanding
 ## 2.1 Collect Initial Data
+Future-Learn collected and provided the data that will be used in this report. For this CRISP-DM cycle, three groups of datasets will be utilized. First is the data of archetype survey responses, which will be used to gather the learner's archetype. Second is the course enrollment data that tells how many people enrolled in each course. Lastly, the course activity determines how far the learner goes through the steps in the course.
+
 ## 2.2 Describe Data
+
+The data that will be explored is the raw data of the course named **Cyber Security: Safety at Home, Online, in Life.** This course is designed to be finished in three weeks. Each week consists of multiple steps, including articles, videos, quizzes, and discussions. From September 2016 to September 2018, the course had been run for 7 times. Throughout the runs, steps are added to enhance learner understandings. From `r count(distinct(activity_1, week_number, step_number))` steps in the first run, the run was enhanced to `r count(distinct(activity_7, week_number, step_number))` steps in the seventh run. The datasets of archetype, course enrollment, and course activity are kept for each run.
+
+These are the list of table for this analysis and its field name:
+
+1. Activity Step: `r colnames(activity_1)`
+2. Enrollment: `r colnames(enroll_1)`
+3. Archetype Survey Response: `r colnames(arch_1)`
+
+The field that are picked for the analysis will be mentioned in part 3.1.
+
+
 ## 2.3 Explore Data
+
+```{r, echo=FALSE}
+enroll_num <- c(
+    nrow(unique(enroll_1[, 'learner_id'])),
+    nrow(unique(enroll_2[, 'learner_id'])),
+    nrow(unique(enroll_3[, 'learner_id'])),
+    nrow(unique(enroll_4[, 'learner_id'])),
+    nrow(unique(enroll_5[, 'learner_id'])),
+    nrow(unique(enroll_6[, 'learner_id'])),
+    nrow(unique(enroll_7[, 'learner_id']))
+)
+
+enroll_num_prettify <- formatC(enroll_num,format="d", big.mark=",")
+
+finish_num <- c(
+    nrow(activity_1_learner_progress_archetype |> filter(finish_percentage >= 80)),
+    nrow(activity_2_learner_progress_archetype |> filter(finish_percentage >= 80)),
+    nrow(activity_3_learner_progress_archetype |> filter(finish_percentage >= 80)),
+    nrow(activity_4_learner_progress_archetype |> filter(finish_percentage >= 80)),
+    nrow(activity_5_learner_progress_archetype |> filter(finish_percentage >= 80)),
+    nrow(activity_6_learner_progress_archetype |> filter(finish_percentage >= 80)),
+    nrow(activity_7_learner_progress_archetype |> filter(finish_percentage >= 80))
+)
+
+finish_num_prettify <- formatC(finish_num,format="d", big.mark=",")
+
+percent_finish <- paste(round(finish_num/enroll_num * 100, 2), "%")
+
+enroll_and_finish_df <- data.frame(Enrollment=enroll_num_prettify, Finisher=finish_num_prettify, Finisher_Percentage = percent_finish)
+rownames(enroll_and_finish_df) <- c('Run 1', 'Run 2', 'Run 3', 'Run 4', 'Run 5', 'Run 6', 'Run 7')
+kable(enroll_and_finish_df)
+```
+
+The table above shows a vast difference in the enrollment number and the finisher in each run. In this report, the learners are considered to finish the course if they finish more than or equal to 80% of the activities. There is a clear pattern that most people do not finish the course, with the lowest number of finishers compared to the enroller in Run 6 at approximately 10% and the highest number in Run 5 at almost 20%. 
+
+```{r, echo=FALSE}
+common_theme <- theme_minimal() +
+    theme(
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        legend.position="none", # Remove individual legends
+    )
+
+common_scale <- scale_fill_manual(
+    name = "Archetype",
+    values = c(
+        "Advancers" = "#F08080",
+        "Explorers" = "#DAA520",
+        "Fixers" = "#90EE90",
+        "Flourishers" = "#98FB98",
+        "Hobbyists" = "#40E0D0",
+        "Other" = "#87CEEB",
+        "Preparers" = "#DDA0DD",
+        "Vitalisers" = "#FF69B4"
+    )
+)
+
+a_3 <- archetype_counts |> filter(Run=="3") |> 
+    ggplot(aes(x = archetype, y = count, fill = archetype)) + 
+    geom_bar(stat='identity') +
+    common_theme +
+    common_scale +
+    labs(
+        x = "Archetype",
+        y = "Count",
+        title = "Run 3"
+    )
+
+a_4 <- archetype_counts |> filter(Run=="4") |> 
+    ggplot(aes(x = archetype, y = count, fill = archetype)) + 
+    geom_bar(stat='identity') +
+    common_theme +
+    common_scale +
+    labs(
+        x = "Archetype",
+        y = "Count",
+        title = "Run 4"
+    )
+
+a_5 <- archetype_counts |> filter(Run=="5") |> 
+    ggplot(aes(x = archetype, y = count, fill = archetype)) + 
+    geom_bar(stat='identity') +
+    common_theme +
+    common_scale +
+    labs(
+        x = "Archetype",
+        y = "Count",
+        title = "Run 5"
+    )
+
+a_6 <- archetype_counts |> filter(Run=="6") |> 
+    ggplot(aes(x = archetype, y = count, fill = archetype)) + 
+    geom_bar(stat='identity') +
+    common_theme +
+    common_scale +
+    labs(
+        x = "Archetype",
+        y = "Count",
+        title = "Run 6"
+    )
+
+a_7 <- archetype_counts |> 
+    filter(Run=="7") |> 
+    ggplot(aes(x = archetype, y = count, fill = archetype)) +
+    common_theme +
+    geom_bar(stat='identity') +
+    common_scale +
+    labs(
+        x = "Archetype",
+        y = "Count",
+        title = "Run 7"
+    )
+
+archetype_plot <- ggarrange(a_3, a_4, a_5, a_6, a_7,  common.legend = TRUE, legend = "bottom")
+
+annotate_figure(
+  archetype_plot, 
+  top = text_grob(
+          "Comparing archetype numbers in each run", 
+          face = "bold", 
+          size = 12, 
+          hjust = 0, 
+          vjust = 0.4, 
+          x = 0
+  )
+)
+```
+
+
+When comparing the number of archetype in each run, it is obvious that the number of each archetype does not distribute evenly among the learners. The top 4 archetype posesses by the learner are Vitalisers, Advancers, Explorers and Fixers.
+
+
 ## 2.4 Verify Data Quality
 
+The data quality of this round analysis is quite good and there are no missing data in the available table. Although archetype survey response of Run 1 and Run 2 were not kept, the report can still analyse the link between archetype and learner finishing rate from other Runs. The only concern is that the survey response rate is low comparing to the enrollment, which will be hard to deduce the result of archetype effect from a whole enrollment population.
+
+```{r, echo=FALSE}
+archetype_response_num <- c(
+    nrow(arch_1),
+    nrow(arch_2),
+    nrow(arch_3),
+    nrow(arch_4),
+    nrow(arch_5),
+    nrow(arch_6),
+    nrow(arch_7)
+)
+
+percent_response <- paste(round(archetype_response_num/enroll_num * 100, 2), "%")
+
+enroll_and_response_df <- data.frame(Enrollment=enroll_num_prettify, Response_Survey=archetype_response_num, Response_Percentage = percent_response)
+rownames(enroll_and_response_df) <- c('Run 1', 'Run 2', 'Run 3', 'Run 4', 'Run 5', 'Run 6', 'Run 7')
+kable(enroll_and_response_df)
+```
