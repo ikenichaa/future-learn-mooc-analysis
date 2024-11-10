@@ -29,25 +29,25 @@ This report aims to gather information for an author of self-development books w
 ## 1.2 Assess Situation 
 The risk for the report is that it relies mainly on the learner’s survey response, so the answer may not be accurate in case the learners do not answer truthfully. Moreover, the analysis may not reflect all learners’ method of study as there are only minority of learners complete the survey.
 
-There is one terminology in this phase, which is the word *learner archetype*. The learner archetype groups learners with the same behavior together. In this report, there are 7 archetypes - advancers, explorers, fixers, flourishers, hobbyists, preparers and vitalisers. If you want to learn more about each archetype, you can go through this [link.](https://ugc.futurelearn.com/uploads/files/2f/ce/2fce94dd-54e6-4614-972d-ce9c3a6d7d91/Learner-Archetypes.pdf)
+There is one terminology in this phase, which is the word *learner archetype*. The learner archetype groups learners with the same behavior together. In this report, there are 7 archetypes - advancers, explorers, fixers, flourishers, hobbyists, preparers and vitalisers. To learn more about the archetype,go through this [link.](https://ugc.futurelearn.com/uploads/files/2f/ce/2fce94dd-54e6-4614-972d-ce9c3a6d7d91/Learner-Archetypes.pdf)
 
 ## 1.3 Produce Project Plan 
 The analysis will follow the CRISP-DM methodologies for two cycles in order to get the key factors leads to course completion. Each cycle will come up with different factors that potentially lead to finish the course. After exploring and analyse data, each factor will be evaluated. In this research, R language is used to extract the insights through statistical summary and visualization. 
 
 Initially, the research question for the first cycle is:
 
-**Do the learner archetypes affect online course success rate?**
+**Does the learner archetype affect online course success rate?**
 
 ## 1.4 Determine Data Mining Goals
-If archetype is significant to the MOOC finish rate, there should be a huge difference in the archetype of finisher and those who unable to finish the course. However, if the archetype is quite similar in both groups, it cannot be deduce that the archetype has an effect on the course completion.
+If the archetype is significant to the MOOC finish rate, there should be a huge difference in the archetype of finisher and those who unable to finish the course. However, if the archetype is quite similar in both groups, it cannot be deduce that the archetype has an effect on the course completion.
 
-# 2. Data Understanding
+## 2. Data Understanding
 ## 2.1 Collect Initial Data
 Future-Learn collected and provided the data that will be used in this report. For this CRISP-DM cycle, three groups of datasets will be utilized. First is the data of archetype survey responses, which will be used to gather the learner's archetype. Second is the course enrollment data that tells how many people enrolled in each course. Lastly, the course activity determines how far the learner goes through the steps in the course.
 
 ## 2.2 Describe Data
 
-The data that will be explored is the raw data of the course named **Cyber Security: Safety at Home, Online, in Life.** This course is designed to be finished in three weeks. Each week consists of multiple steps, including articles, videos, quizzes, and discussions. From September 2016 to September 2018, the course had been run for 7 times. Throughout the runs, steps are added to enhance learner understandings. From `r count(distinct(activity_1, week_number, step_number))` steps in the first run, the run was enhanced to `r count(distinct(activity_7, week_number, step_number))` steps in the seventh run. The datasets of archetype, course enrollment, and course activity are kept for each run.
+The data is gathered from a course named **Cyber Security: Safety at Home, Online, in Life.** This course is designed to be finished in three weeks. Each week consists of multiple steps, including articles, videos, quizzes, and discussions. From September 2016 to September 2018, the course had been run for 7 times. Throughout the years, steps are added to enhance learner understandings. From `r count(distinct(activity_1, week_number, step_number))` steps in the first run, the run was gradually enhanced to `r count(distinct(activity_7, week_number, step_number))` steps in the seventh run. The datasets of archetype, course enrollment, and course activity are kept for each run.
 
 These are the list of table for this analysis and its field name:
 
@@ -193,7 +193,7 @@ When comparing the number of archetype in each run, it is obvious that the numbe
 
 ## 2.4 Verify Data Quality
 
-The data quality of this round analysis is quite good and there are no missing data in the available table. Although archetype survey response of Run 1 and Run 2 were not kept, the report can still analyse the link between archetype and learner finishing rate from other Runs. The only concern is that the survey response rate is low comparing to the enrollment, which will be hard to deduce the result of archetype effect from a whole enrollment population.
+The data quality of this round analysis is quite good and there are no missing data in the available table. Although archetype survey response of Run 1 and Run 2 were not kept, the report can still analyse the link between archetype and learner finishing rate from other runs. The only concern is that the survey response rate is low comparing to the enrollment, which will be hard to deduce the result of archetype effect from a whole enrollment population.
 
 ```{r, echo=FALSE}
 archetype_response_num <- c(
@@ -293,7 +293,7 @@ incomplete_learner_archetype[is.na(incomplete_learner_archetype)] <- 0
 ```
 
 
-As right now we have all data prepared, we will examine our main research topic for this round, **Do the learner archetypes affect online course success rate?**
+As right now we have all data prepared, we will examine our main research topic for this round, **Does the learner archetype affect online course success rate?**
 
 ## 4.1 Archetype of learners who completed the course
 Let start by take a look at the table below on the archetype of the learner who complete the course.
@@ -302,7 +302,7 @@ Let start by take a look at the table below on the archetype of the learner who 
 kable(complete_learner_archetype, caption = "Archetype of the learners who complete the course")
 ```
 
-As mentioned before, not many people response to the survey of the archetype, so the majority of learner archetype is unknown. If we ignore unknown type, depends on each run, some archetype perform better than the others. For a better understanding, the data is scaled for each run, so that the number of archetypes can be compare properly. The more number of successful learners in that archetype, the brighter the color is showed on the heatmap.
+As mentioned before, not many people response to the survey of the archetype, so the majority of learner archetype is unknown. If we ignore unknown type, depends on each run, some archetype perform better than the others. For a better understanding, the data is scaled for each run, so that the archetypes can be compare properly within the run. The brighter the color on the heatmap is the more number of successful learners in that archetype.
 
 
 ```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Heatmap showing scaled number of learners who complete the course in each run"}
@@ -338,10 +338,10 @@ annotate_figure(
 ```
 
 
-From the heatmap, it is evident that *vitalisers* archetype perform best in all run comparing to other archetype followed by *advancers* and *explorers*, where it perform less successful than the others in some run. However, it needs to be tackle that did vitalisers perform better just because most people are vitalisers or it is really affect the course completion. To check the performance, the success rate vs unsuccess rate for each archetype will be compared.
+From the heatmap, it is evident that *vitalisers* archetype perform best in all run comparing to other archetype followed by *advancers* and *explorers*, where they have less completer than the others in some runs. However, it needs to be tackle that did vitalisers perform better just because most people are vitalisers or it is really affect the course completion. To check the performance, the success rate vs unsuccess rate for each archetype will be compared.
 
 ## 4.2 Success rate for each learners' archetype
-For this part, let we determine the ratio of learner with same archetype that complete or not complete the course. If the success rate within the archetype is high, it can be deduce that the archetype affect the onine course completion.
+For this part, let we determine the ratio of learner with same archetype that complete or not complete the course. If the success rate within the archetype is high, it can be deduced that the archetype affect the online course completion.
 
 ```{r, echo=FALSE}
 success_rate_for_learner_archetype <- 
@@ -388,3 +388,15 @@ annotate_figure(
 
 
 Interestingly, heatmap shows that *other* type is the only archetype that does not have the completion rate below 50%.
+
+## 5 Evaluation
+## 5.1 Evaluate Results
+After explore the data on archetype and course completion rate thoroughly, the archetype has no prominent effect on the completion. At first glance, some archetype is standing out to have more number of complete learner but actually that is happening because there are more learner in that archetype as a whole so there is a higher chance for learners in that archetype to finish the course more. When comparing the success rate for each archetype, the result is too random in all archetype to have a significant impact on the course completion. Based on the findings, the reason to start a course and the archetype does not affect whether or not learner finish the online course.
+
+## 5.2 Review Process
+Data wrangling and data exploration have been revisited. The results provided above are legit.
+TODO: talk about data quality that the survey response is too less.
+
+## 5.3 Determine next steps
+It is known that the type of learner cannot use to determined the completion rate, so the next step would be to find other features that contribute to the success in online course completion.
+
