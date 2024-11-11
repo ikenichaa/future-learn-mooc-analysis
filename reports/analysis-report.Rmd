@@ -2,7 +2,10 @@
 title: "Future Learn - Analysis Report"
 author: "Nicha Wilanan"
 date: "2024-10-31"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -51,7 +54,7 @@ The data is gathered from a course named **Cyber Security: Safety at Home, Onlin
 
 These are the list of table for this analysis and its field name:
 
-1. Activity Step: `r colnames(activity_1)`
+1. Activity Step: `r colnames(cyber.security.1_step.activity)`
 2. Enrollment: `r colnames(enroll_1)`
 3. Archetype Survey Response: `r colnames(arch_1)`
 
@@ -399,4 +402,24 @@ TODO: talk about data quality that the survey response is too less.
 
 ## 5.3 Determine next steps
 It is known that the type of learner cannot use to determined the completion rate, so the next step would be to find other features that contribute to the success in online course completion.
+
+# CRISP-DM Round 2
+## Business Understanding
+In this round, instead of using the survey response from users, we are going to investigate the user success rate through users' actions in the course.
+
+## 1.1 Determine Business Objective
+The business objective for this round is exactly the same as the first round. The stakeholder wants to know the common traits of the course completer.
+
+## 1.2 Assess Situation
+There is lower risks in this phase as we do not rely on the user survey response. There is a dataset that shows the first visited date and last completed date of each learners for each step in the course. This report will assume that the data were collected accurately and can be used straightaway.
+
+## 1.3 Produce Project Plan
+As we now realize that the archetype doesn't affect the result, we need to take a look at the action made by the learners. As the course is designed to finished the sub-steps within a week, we will examined that is there a higher chance for a learner to finish a course if they can follow the course schedule.
+
+Therefore, the main research topic for the second cycle is:
+**Does following course schedule contribute to course completion?**
+
+## 1.4 Determine Data Mining Goals
+If keeping to the course schedule can make a learner complete the course.
+
 
