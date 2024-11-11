@@ -1,3 +1,4 @@
+# For the enrolments dataset, filter only the role learner who has never been unenrolled
 enroll_1 <- cyber.security.1_enrolments |> filter(role=='learner' & unenrolled_at == '')
 enroll_2 <- cyber.security.2_enrolments |> filter(role=='learner' & unenrolled_at == '')
 enroll_3 <- cyber.security.3_enrolments |> filter(role=='learner' & unenrolled_at == '')

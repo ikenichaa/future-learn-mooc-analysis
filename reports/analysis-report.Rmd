@@ -44,7 +44,7 @@ Initially, the research question will aim to see the result of the course comple
 Noted that the *completion* in this report refers to the learners who accomplished more than 80% of the course content.
 
 ## 1.4 Determine Data Mining Goals
-If the archetype is significant to the course finish rate, most people with the same archetype must complete or not complete the course
+To know that the learners' archetype affect online course completion rate, a solid pattern of completion for the archetype on every run must be found. If the completion rate in each archetypes are random, it cannot be deduce that the archetype actually affect the course completion.
 
 ## 2. Data Understanding
 ## 2.1 Collect Initial Data
@@ -66,6 +66,7 @@ The field that are picked for the analysis will be mentioned in part 3.1.
 ## 2.3 Explore Data
 
 ```{r, echo=FALSE}
+# Get the enrollment number for each run
 enroll_num <- c(
     nrow(unique(enroll_1[, 'learner_id'])),
     nrow(unique(enroll_2[, 'learner_id'])),
@@ -76,30 +77,40 @@ enroll_num <- c(
     nrow(unique(enroll_7[, 'learner_id']))
 )
 
+# Add comma to the enrollment number 
 enroll_num_prettify <- formatC(enroll_num,format="d", big.mark=",")
 
+# Get the number of learner who complete the course in each run
 finish_num <- c(
-    nrow(activity_1_learner_progress_archetype |> filter(finish_percentage >= 80)),
-    nrow(activity_2_learner_progress_archetype |> filter(finish_percentage >= 80)),
-    nrow(activity_3_learner_progress_archetype |> filter(finish_percentage >= 80)),
-    nrow(activity_4_learner_progress_archetype |> filter(finish_percentage >= 80)),
-    nrow(activity_5_learner_progress_archetype |> filter(finish_percentage >= 80)),
-    nrow(activity_6_learner_progress_archetype |> filter(finish_percentage >= 80)),
-    nrow(activity_7_learner_progress_archetype |> filter(finish_percentage >= 80))
+    nrow(activity_1_learner_progress_archetype |> filter(finish_percentage > 80)),
+    nrow(activity_2_learner_progress_archetype |> filter(finish_percentage > 80)),
+    nrow(activity_3_learner_progress_archetype |> filter(finish_percentage > 80)),
+    nrow(activity_4_learner_progress_archetype |> filter(finish_percentage > 80)),
+    nrow(activity_5_learner_progress_archetype |> filter(finish_percentage > 80)),
+    nrow(activity_6_learner_progress_archetype |> filter(finish_percentage > 80)),
+    nrow(activity_7_learner_progress_archetype |> filter(finish_percentage > 80))
 )
 
+# Add comma to the course completion number
 finish_num_prettify <- formatC(finish_num,format="d", big.mark=",")
 
+# Calculate the percentage of course completion
 percent_finish <- paste(round(finish_num/enroll_num * 100, 2), "%")
 
+# Construct the enrollment and completion data frame
 enroll_and_finish_df <- data.frame(Enrollment=enroll_num_prettify, Finisher=finish_num_prettify, Finisher_Percentage = percent_finish)
+
+# Add row name
 rownames(enroll_and_finish_df) <- c('Run 1', 'Run 2', 'Run 3', 'Run 4', 'Run 5', 'Run 6', 'Run 7')
+
+# Show the result as a table
 kable(enroll_and_finish_df, caption = "Enrollment and course finisher percentage")
 ```
 
 The table above shows a vast difference in the enrollment number and the finisher in each run. In this report, the learners are considered to finish the course if they finish more than or equal to 80% of the activities. There is a clear pattern that most people do not finish the course, with the lowest number of finishers compared to the enroller in Run 6 at approximately 10% and the highest number in Run 5 at almost 20%. 
 
 ```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Number of learners by archetype in each run"}
+# Construct the theme for subplot
 common_theme <- theme_minimal() +
     theme(
         axis.text.x=element_blank(),
@@ -107,6 +118,7 @@ common_theme <- theme_minimal() +
         legend.position="none", # Remove individual legends
     )
 
+# Construct the color value representing each archetype for subplot
 common_scale <- scale_fill_manual(
     name = "Archetype",
     values = c(
@@ -121,6 +133,7 @@ common_scale <- scale_fill_manual(
     )
 )
 
+# Plot a graph of counting number of learners in each archetype for run 3
 a_3 <- archetype_counts |> filter(run=="3") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) + 
     geom_bar(stat='identity') +
@@ -132,6 +145,7 @@ a_3 <- archetype_counts |> filter(run=="3") |>
         title = "Run 3"
     )
 
+# Plot a graph of counting number of learners in each archetype for run 4
 a_4 <- archetype_counts |> filter(run=="4") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) + 
     geom_bar(stat='identity') +
@@ -143,6 +157,7 @@ a_4 <- archetype_counts |> filter(run=="4") |>
         title = "Run 4"
     )
 
+# Plot a graph of counting number of learners in each archetype for run 5
 a_5 <- archetype_counts |> filter(run=="5") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) + 
     geom_bar(stat='identity') +
@@ -154,6 +169,7 @@ a_5 <- archetype_counts |> filter(run=="5") |>
         title = "Run 5"
     )
 
+# Plot a graph of counting number of learners in each archetype for run 6
 a_6 <- archetype_counts |> filter(run=="6") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) + 
     geom_bar(stat='identity') +
@@ -165,6 +181,7 @@ a_6 <- archetype_counts |> filter(run=="6") |>
         title = "Run 6"
     )
 
+# Plot a graph of counting number of learners in each archetype for run 7
 a_7 <- archetype_counts |> 
     filter(run=="7") |> 
     ggplot(aes(x = archetype, y = count, fill = archetype)) +
@@ -177,8 +194,10 @@ a_7 <- archetype_counts |>
         title = "Run 7"
     )
 
+# Aggregate the archetype count subplot together
 archetype_plot <- ggarrange(a_3, a_4, a_5, a_6, a_7,  common.legend = TRUE, legend = "bottom")
 
+# Annotate the plot to show and add title to the plot
 annotate_figure(
   archetype_plot, 
   top = text_grob(
@@ -201,6 +220,7 @@ When comparing the number of archetype in each run, it is obvious that the numbe
 The data quality of this round analysis is quite good and there are no missing data in the available table. Although archetype survey response of Run 1 and Run 2 were not kept, the report can still analyse the link between archetype and learner finishing rate from other runs. The only concern is that the survey response rate is low comparing to the enrollment, which will be hard to deduce the result of archetype effect from a whole enrollment population.
 
 ```{r, echo=FALSE}
+# Count the number of archetype survey response for each run
 archetype_response_num <- c(
     nrow(arch_1),
     nrow(arch_2),
@@ -211,18 +231,24 @@ archetype_response_num <- c(
     nrow(arch_7)
 )
 
+# Calculate the percentage of survey response compare to all enrolment number
 percent_response <- paste(round(archetype_response_num/enroll_num * 100, 2), "%")
 
+# Construct the enrollment and survey response data frame
 enroll_and_response_df <- data.frame(Enrollment=enroll_num_prettify, Response_Survey=archetype_response_num, Response_Percentage = percent_response)
+
+# Add row names
 rownames(enroll_and_response_df) <- c('Run 1', 'Run 2', 'Run 3', 'Run 4', 'Run 5', 'Run 6', 'Run 7')
+
+# Show the result table
 kable(enroll_and_response_df, caption="Archetype response survey percentage")
 ```
 
 ## 3. Data Preparation
 ## 3.1 Select Data
 
-1. Enrollment:
-The enrollment data is used just for the exploratory purpose and to understand learners more. There is no direct use to answer the main questions on the archetype.
+1. Enrolment:
+The enrolment data is used just for the exploratory purpose and to understand learners more. There is no direct use to answer the main questions on the archetype.
 
 2. Activity Step:
 This data is going to be used as a criteria on finding successful learner. To check that learners completed more than 80% of the steps in the module, the learner_id, week_number, step_number, and last_completed_at will be used.
@@ -242,6 +268,7 @@ Afterwards, the *learner_progress* table is merged with the archetype table by *
 
 ## 4. Modelling
 ```{r, echo=FALSE}
+# Construct the summary table for run 3 on the number of learners who complete and not complete the course by archetype
 a_3_summary <- activity_3_learner_progress_archetype |> 
     group_by(archetype, finish) |> 
     summarize(count = n(), .groups = 'drop') |>
@@ -251,6 +278,7 @@ a_3_summary <- activity_3_learner_progress_archetype |>
     relocate(Run, .after = finish) |>
     relocate(Preparers, .after = Other)
 
+# Construct the summary table for run 4 on the number of learners who complete and not complete the course by archetype
 a_4_summary <- activity_4_learner_progress_archetype |> 
     group_by(archetype, finish) |> 
     summarize(count = n(), .groups = 'drop') |>
@@ -258,6 +286,7 @@ a_4_summary <- activity_4_learner_progress_archetype |>
     mutate(Run = "4") |>
     relocate(Run, .after = finish)
 
+# Construct the summary table for run 5 on the number of learners who complete and not complete the course by archetype
 a_5_summary <- activity_5_learner_progress_archetype |> 
     group_by(archetype, finish) |> 
     summarize(count = n(), .groups = 'drop') |>
@@ -265,6 +294,7 @@ a_5_summary <- activity_5_learner_progress_archetype |>
     mutate(Run = "5") |>
     relocate(Run, .after = finish)
 
+# Construct the summary table for run 6 on the number of learners who complete and not complete the course by archetype
 a_6_summary <- activity_6_learner_progress_archetype |> 
     group_by(archetype, finish) |> 
     summarize(count = n(), .groups = 'drop') |>
@@ -272,6 +302,7 @@ a_6_summary <- activity_6_learner_progress_archetype |>
     mutate(Run = "6") |>
     relocate(Run, .after = finish)
 
+# Construct the summary table for run 7 on the number of learners who complete and not complete the course by archetype
 a_7_summary <- activity_7_learner_progress_archetype |> 
     group_by(archetype, finish) |> 
     summarize(count = n(), .groups = 'drop') |>
@@ -279,6 +310,7 @@ a_7_summary <- activity_7_learner_progress_archetype |>
     mutate(Run = "7") |>
     relocate(Run, .after = finish)
 
+# Construct the summary table for all runs on the number of learners who COMPLETE the course by archetype
 complete_learner_archetype <- rbind(
     a_3_summary,
     a_4_summary,
@@ -287,6 +319,10 @@ complete_learner_archetype <- rbind(
     a_7_summary
 ) |> filter(finish == TRUE) |> select(-finish)
 
+# Use zero for the archetype with no data
+complete_learner_archetype[is.na(complete_learner_archetype)] <- 0
+
+# Construct the summary table for all runs on the number of learners who NOT COMPLETE the course by archetype
 incomplete_learner_archetype <- rbind(
     a_3_summary,
     a_4_summary,
@@ -295,6 +331,7 @@ incomplete_learner_archetype <- rbind(
     a_7_summary
 ) |> filter(finish == FALSE) |> select(-finish)
 
+# Use zero for the archetype with no data 
 incomplete_learner_archetype[is.na(incomplete_learner_archetype)] <- 0
 ```
 
@@ -312,24 +349,33 @@ As mentioned before, not many people response to the survey of the archetype, so
 
 
 ```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Heatmap showing scaled number of learners who complete the course in each run"}
+# Filter archetype and scale the data by row
 scale_complete <- complete_learner_archetype[, -c(1, ncol(complete_learner_archetype))] |>
     apply(1, scale) |> as.data.frame()
+
+# Add column name
 colnames(scale_complete) <- c('Run 3', 'Run 4', 'Run 5', 'Run 6', 'Run 7')
+
+# Add row name
 rownames(scale_complete) <- c('Advancers', 'Explorers', 'Fixers', 'Flourishers', 'Hobbyists', 'Other', 'Preparers', 'Vitalisers')
 
+# Update the row name to column archetype
 scale_complete <- tibble::rownames_to_column(scale_complete, "archetype")
 
+# Prepare heatmap data by pivot longer
 heatmap_data <- scale_complete |>
     pivot_longer(cols = starts_with("Run"),
                 names_to = "Run",
                 values_to = "Scale")
 
+# Plot the heatmap comparing the scale of learner who completed the course
 scale_completion_plot <- ggplot(heatmap_data, aes(x = Run, y = archetype, fill = Scale)) +
     geom_tile() +
     scale_fill_viridis_c(option = "A") +
     theme_minimal() +
     labs(x = "run")
 
+# Annotate figure
 annotate_figure(
   scale_completion_plot, 
   top = text_grob(
@@ -350,61 +396,43 @@ From the heatmap, it is evident that *vitalisers* archetype perform best in all 
 For this part, let we determine the ratio of learner with same archetype that complete or not complete the course. If the success rate within the archetype is high, it can be deduced that the archetype affect the online course completion.
 
 ```{r, echo=FALSE}
+# Calculate the percentage of completion rate for each archetype
 success_rate_for_learner_archetype <- 
     round((complete_learner_archetype[,c(-1, -ncol(complete_learner_archetype))]/
          (incomplete_learner_archetype[,c(-1, -ncol(complete_learner_archetype))]+
               complete_learner_archetype[,c(-1, -ncol(complete_learner_archetype))])) * 100, 2)
-    
-    
 
+# Use zero for data that has no value
+success_rate_for_learner_archetype[is.na(success_rate_for_learner_archetype)] <- 0 
+
+# Add percentage symbol
+success_rate_for_learner_archetype[] <- lapply(success_rate_for_learner_archetype, function(x) paste(format(x, nsmall=2), "%"))
+
+# Add field run
 success_rate_for_learner_archetype$Run <- c('3', '4', '5', '6', '7')
-success_rate_for_learner_archetype <- success_rate_for_learner_archetype |> relocate(Run, .before = Advancers)
-success_rate_for_learner_archetype[is.na(success_rate_for_learner_archetype)] <- 0
 
-heatmap_data_success_rate <- success_rate_for_learner_archetype |>
-    pivot_longer(cols = !Run,
-                names_to = "archetype",
-                values_to = "percent")
+# Relocate field run to be the first column
+success_rate_for_learner_archetype <- success_rate_for_learner_archetype |> relocate(Run, .before = Advancers)
+
 ```
 
 ```{r, echo=FALSE}
+# Show table
 kable(success_rate_for_learner_archetype, caption = "Course completion rate by archetype")
 ```
 
-Contrary to the previous result, the *flourisher* type has the highest completion rate among all archetypes in 3 out of 5 runs. The result can be seen clearer in the heatmap below.
-```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Heatmap showing completion rate of learners by archetype"}
-success_rate_plot <- ggplot(heatmap_data_success_rate, aes(x = Run, y = archetype, fill = percent)) +
-    geom_tile() +
-    scale_fill_viridis_c(option = "A") +
-    theme_minimal() +
-    labs(x = "run")
+By checking the percentage of completion on each archetype, the result is low and random among different learner's type in each run. The low success rate among each archetype is not surprising because the overall finish rate as a whole shows in *Table 1* is also low.
 
-annotate_figure(
-  success_rate_plot, 
-  top = text_grob(
-          "Heatmap showing completion rate of learners by archetype", 
-          face = "bold", 
-          size = 12, 
-          hjust = 0, 
-          vjust = 0.4, 
-          x = 0
-  )
-)
-```
-
-
-Interestingly, heatmap shows that *other* type is the only archetype that does not have the completion rate below 50%.
 
 ## 5 Evaluation
 ## 5.1 Evaluate Results
-After explore the data on archetype and course completion rate thoroughly, the archetype has no prominent effect on the completion. At first glance, some archetype is standing out to have more number of complete learner but actually that is happening because there are more learner in that archetype as a whole so there is a higher chance for learners in that archetype to finish the course more. When comparing the success rate for each archetype, the result is too random in all archetype to have a significant impact on the course completion. Based on the findings, the reason to start a course and the archetype does not affect whether or not learner finish the online course.
+After explore the data on archetype and course completion rate thoroughly, the archetype has no distinctive effect on the completion. At first glance, some archetype is standing out to have more number of complete learner but actually that is happening because there are more learner in that archetype as a whole so there is a higher chance for learners in that archetype to finish the course more. When comparing the success rate for each archetype, the result is too random in all archetype to have a significant impact on the course completion. Although the rate of completion of the learner with known archetype is more than the overall completion rate, there is a lack of solid pattern among the archetype in each run. Based on the findings, the archetype does not affect whether or not learner finish the online course.
 
 ## 5.2 Review Process
 Data wrangling and data exploration have been revisited. The results provided above are legit.
-TODO: talk about data quality that the survey response is too less.
 
 ## 5.3 Determine next steps
-It is known that the type of learner cannot use to determined the completion rate, so the next step would be to find other features that contribute to the success in online course completion.
+It is known that the type of learner solely cannot use to determined the completion rate, so it can be concluded that the archetype cannot determine the study outcome. For the next phase, the research will go deeper into 
 
 # CRISP-DM Round 2
 ## Business Understanding

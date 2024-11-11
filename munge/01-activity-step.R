@@ -1,4 +1,6 @@
-# Example preprocessing script.
+# For the step activity table, filter out the row with no last completed at to pick only the step that users completed
+# Then filter only learner_id, week_number, step_number
+# Repeat this to all runs
 activity_1 <- distinct(
         cyber.security.1_step.activity |>
         filter(last_completed_at != "") |>
