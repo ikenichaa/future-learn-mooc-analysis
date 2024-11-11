@@ -1,15 +1,14 @@
 percentage_of_course_success <- function(count_steps, all_steps) {
-    c_step <- as.numeric(count_steps)
     return (count_steps/all_steps * 100)
 }
 
-steps_in_course_1 <- n_distinct(activity_1$step, activity_1$step_number)
-steps_in_course_2 <- n_distinct(activity_2$step, activity_2$step_number)
-steps_in_course_3 <- n_distinct(activity_3$step, activity_3$step_number)
-steps_in_course_4 <- n_distinct(activity_4$step, activity_4$step_number)
-steps_in_course_5 <- n_distinct(activity_5$step, activity_5$step_number)
-steps_in_course_6 <- n_distinct(activity_6$step, activity_6$step_number)
-steps_in_course_7 <- n_distinct(activity_7$step, activity_7$step_number)
+steps_in_course_1 <- n_distinct(activity_1$week_number, activity_1$step_number)
+steps_in_course_2 <- n_distinct(activity_2$week_number, activity_2$step_number)
+steps_in_course_3 <- n_distinct(activity_3$week_number, activity_3$step_number)
+steps_in_course_4 <- n_distinct(activity_4$week_number, activity_4$step_number)
+steps_in_course_5 <- n_distinct(activity_5$week_number, activity_5$step_number)
+steps_in_course_6 <- n_distinct(activity_6$week_number, activity_6$step_number)
+steps_in_course_7 <- n_distinct(activity_7$week_number, activity_7$step_number)
 
 activity_1_learner_progress_archetype <- activity_1 |>
     count(learner_id) |>
