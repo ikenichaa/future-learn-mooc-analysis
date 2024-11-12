@@ -1,7 +1,7 @@
 ---
-title: "Future Learn - Analysis Report"
+title: "Impact of learner archetype on study outcome and study method"
 author: "Nicha Wilanan"
-date: "2024-10-31"
+date: "Semester 1 2024/2025"
 output:
   pdf_document: default
   html_document:
@@ -20,22 +20,22 @@ load.project()
 ```
 
 # Introduction
-TODO:
+This report analyses the **impact of archetype on study outcome and methodology** to answer the questions of the stakeholder, a researcher studying the learning strategies for students to follow for the best study outcome. The online course data and survey are the material used to answer the question of how the learner archetype and the study method can impact the successful outcome of studying online courses. The procedure to construct the research is using two cycles of Cross-Industry Standard Process for Data Mining (CRISP-DM). The first cycle will be conducted to examine whether the archetype has an impact on course completion. Then, the second cycle will built on top of the first cycle, depending on the result. If the result suggests that some archetypes successfully dominate the course completion outcome, the second cycle will focus on the behaviour of those archetypes. On the contrary, if the result shows that the archetypes do not contribute to the success, the behaviour of the learners of each archetype who completed the course will be investigated to show the study pattern to finish the online course by different types of learners.
 
 # CRISP-DM Round 1
 
 ## 1. Business Understandings
 
 ## 1.1 Determine Business Objective
-This report aims to gather information for a book author on learning strategies to gain more insights into the characteristics of each type of learner. The stakeholder's objective is to see how each archetype is different in their study's outcome or study method. The stakeholder aims to use this research as a stepping-stone to know the differences or similarities between the archetypes. Therefore, the criteria for the success finding in this report is to figure out whether the archetypes contribute to the uniqueness of study results or study methods. It could end up that each type is unique or it can be that all types share similar methods and outcomes.
+The first cycle of this report aims to find the impact of the learner archetype on course completion. This question is the main topic of this research that will shape the following cycle's question. By getting to know whether or not the archetype affects learners' completion rate, the stakeholders can have a general idea of what archetype the learners should have to have a higher chance to complete the course. If there is an archetype that completes the course more than others, the researcher may advise learners to approach the study material with that particular mindset. On the other hand, if the archetype is not a significant factor in course completion, each archetype has a fair chance of completing the course, and it will be investigated further on in the next cycle on how to do so.
 
 ## 1.2 Assess Situation 
 The risk for the report is that it relies mainly on the learner’s survey response on their archetype, so the answer may not be accurate in case the learners do not answer truthfully. Moreover, the analysis may not reflect all learners’ method of study as there are only a minority of learners complete the survey. 
 
-There is one terminology in this phase, which is the word *learner archetype*. The learner archetype groups learners with the same behaviour together. In this report, there are 7 archetypes - advancers, explorers, fixers, flourishers, hobbyists, preparers and vitalisers. To learn more about the archetype, go through this  [link.](https://ugc.futurelearn.com/uploads/files/2f/ce/2fce94dd-54e6-4614-972d-ce9c3a6d7d91/Learner-Archetypes.pdf)
+There is one terminology in this phase, which is the word *learner archetype*. The archetype is the goal and mindset that the learners have when approaching the study. It groups learners with the same goal together. In this report, there are 7 archetypes - advancers, explorers, fixers, flourishers, hobbyists, preparers and vitalisers. To learn more about the archetype, go through this  [link.](https://ugc.futurelearn.com/uploads/files/2f/ce/2fce94dd-54e6-4614-972d-ce9c3a6d7d91/Learner-Archetypes.pdf)
 
-## 1.3 Produce Project Plan 
-The analysis will follow the CRISP-DM methodologies for two cycles in order to know more about the archetype study result and study strategy. Each cycle will come up with a main research topic. After exploring and analyse data, the findings will be evaluated. In this research, R language is used to extract the insights through statistical summary and visualization.  
+## 1.3 Determine Data Mining Goals
+To know that the learners' archetype affect online course completion rate, a solid pattern of completion for the archetype on every run must be found. If the completion rate in each archetypes are random, it cannot be deduce that the archetype actually affect the course completion.
 
 Initially, the research question will aim to see the result of the course completion on each archetype. The main research topic for this cycle is: 
 
@@ -43,8 +43,9 @@ Initially, the research question will aim to see the result of the course comple
 
 Noted that the *completion* in this report refers to the learners who accomplished more than 80% of the course content.
 
-## 1.4 Determine Data Mining Goals
-To know that the learners' archetype affect online course completion rate, a solid pattern of completion for the archetype on every run must be found. If the completion rate in each archetypes are random, it cannot be deduce that the archetype actually affect the course completion.
+## 1.4 Produce Project Plan 
+After come up with a main research topic, the data is going to be cleaned, explored and analysed. Then, the findings will be evaluated. In this research, R language is used to extract the insights through statistical summary and visualization.  
+
 
 ## 2. Data Understanding
 ## 2.1 Collect Initial Data
@@ -432,25 +433,28 @@ After explore the data on archetype and course completion rate thoroughly, the a
 Data wrangling and data exploration have been revisited. The results provided above are legit.
 
 ## 5.3 Determine next steps
-It is known that the type of learner solely cannot use to determined the completion rate, so it can be concluded that the archetype cannot determine the study outcome. For the next phase, the research will go deeper into 
+As the archetype is not the factor of course completion, the stakeholders would like to know further on the strategy that each archetype uses to finish the online course successfully. For the next phase, the research will investigate the study pattern that can lead to success in online course completion for each archetype.
 
 # CRISP-DM Round 2
 ## Business Understanding
-In this round, instead of using the survey response from users, we are going to investigate the user success rate through users' actions in the course.
+In this round, we are going to investigate the user success rate through users' actions in the course and compare it with archetype.
 
 ## 1.1 Determine Business Objective
-The business objective for this round is exactly the same as the first round. The stakeholder wants to know the common traits of the course completer.
+The stakeholder wants to know the learner archetype study pattern contributing to course completion success. As archetypes alone cannot contribute directly to the completion rate, other factors that lead to success among archetypes will be explored further.
 
 ## 1.2 Assess Situation
-There is lower risks in this phase as we do not rely on the user survey response. There is a dataset that shows the first visited date and last completed date of each learners for each step in the course. This report will assume that the data were collected accurately and can be used straightaway.
+In this phase, the primary data still rely on the user survey response, which is limited, and the archetype distribution is not symmetrical, so the result may not represent the entire archetype population perfectly. As new data is needed to see the action of each learner archetype, new data is added to this scope to calculate the time it takes for each learner to finish the weekly module of the course. This report will assume that the data were collected accurately and can be used straight away.
 
-## 1.3 Produce Project Plan
-As we now realize that the archetype doesn't affect the result, we need to take a look at the action made by the learners. As the course is designed to finished the sub-steps within a week, we will examined that is there a higher chance for a learner to finish a course if they can follow the course schedule.
+
+## 1.3 Determine Data Mining Goals
+The action made by the learners when studying the online courses must be explored to see the pattern that the successful learner archetype has in common. The action chosen to be determined is the time spent to finish a 1-week study material of the online course. As the only way to complete the online course is to finish each small step daily, seeing how long the learner spent to finish each weekly module is a good start to knowing the characteristics of learner archetype approach to finish the online material.
 
 Therefore, the main research topic for the second cycle is:
-**Does following course schedule contribute to course completion?**
+**Does the successful learner in each archetype have the same approach in time spent on learning 1-week study material?**
 
-## 1.4 Determine Data Mining Goals
-If keeping to the course schedule can make a learner complete the course.
+If there is the same pattern of success within an archetype, other students can follow the study pattern of the learner with the same archetype to finish the online course successfully.
+
+## 1.4 Produce Project Plan
+The project plan is similar to the previous phase. The data will be cleaned, explored, analysed, and evaluated using R language. The insights are gained through statistical summary and visualisation.
 
 
