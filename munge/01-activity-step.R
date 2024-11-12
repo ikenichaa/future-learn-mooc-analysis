@@ -30,3 +30,11 @@ activity_6 <- cyber.security.6_step.activity |>
 activity_7 <- cyber.security.7_step.activity |>
     filter(last_completed_at != "") |>
     select(learner_id, week_number, step_number)
+
+cache('activity_1')
+cache('activity_2')
+cache('activity_3')
+cache('activity_4')
+cache('activity_5')
+cache('activity_6')
+cache('activity_7')

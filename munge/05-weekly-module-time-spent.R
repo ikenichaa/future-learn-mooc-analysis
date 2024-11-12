@@ -14,7 +14,7 @@ run_3_weekly_module_time_spent_for_finisher <- run_3_activity_with_finish_flag |
     summarise(duration_in_days = difftime(max(last_completed_at), min(first_visited_at), units = "days"))
 
 # Merge to get the archetype
-run_3_weekly_module_time_spent_with_arch <- weekly_module_time_spent_for_finisher |>
+run_3_weekly_module_time_spent_with_arch <- run_3_weekly_module_time_spent_for_finisher |>
     merge(y = activity_3_learner_progress_archetype[,c("learner_id", "archetype")], by=c("learner_id"), all.x = TRUE) |>
     mutate(duration_in_days_int = as.numeric(duration_in_days)) |>
     mutate(run = 3)
@@ -36,7 +36,7 @@ run_4_weekly_module_time_spent_for_finisher <- run_4_activity_with_finish_flag |
     summarise(duration_in_days = difftime(max(last_completed_at), min(first_visited_at), units = "days"))
 
 # Merge to get the archetype
-run_4_weekly_module_time_spent_with_arch <- weekly_module_time_spent_for_finisher |>
+run_4_weekly_module_time_spent_with_arch <- run_4_weekly_module_time_spent_for_finisher |>
     merge(y = activity_4_learner_progress_archetype[,c("learner_id", "archetype")], by=c("learner_id"), all.x = TRUE) |>
     mutate(duration_in_days_int = as.numeric(duration_in_days)) |>
     mutate(run = 4)
@@ -51,14 +51,14 @@ run_5_activity_with_finish_flag <- cyber.security.5_step.activity |>
     merge(y = activity_5_learner_progress_archetype[,c("learner_id", "finish")], by=c("learner_id"), all.x = TRUE)
 
 # Calculate the duration that each complete learner take to finish the weekly module
-run_5_weekly_module_time_spent_for_finisher <- run_3_activity_with_finish_flag |>
+run_5_weekly_module_time_spent_for_finisher <- run_5_activity_with_finish_flag |>
     filter(finish == TRUE) |>
     filter(last_completed_at != "") |>
     group_by(learner_id, week_number)|>
     summarise(duration_in_days = difftime(max(last_completed_at), min(first_visited_at), units = "days"))
 
 # Merge to get the archetype
-run_5_weekly_module_time_spent_with_arch <- weekly_module_time_spent_for_finisher |>
+run_5_weekly_module_time_spent_with_arch <- run_5_weekly_module_time_spent_for_finisher |>
     merge(y = activity_5_learner_progress_archetype[,c("learner_id", "archetype")], by=c("learner_id"), all.x = TRUE) |>
     mutate(duration_in_days_int = as.numeric(duration_in_days)) |>
     mutate(run = 5)
@@ -80,7 +80,7 @@ run_6_weekly_module_time_spent_for_finisher <- run_6_activity_with_finish_flag |
     summarise(duration_in_days = difftime(max(last_completed_at), min(first_visited_at), units = "days"))
 
 # Merge to get the archetype
-run_6_weekly_module_time_spent_with_arch <- weekly_module_time_spent_for_finisher |>
+run_6_weekly_module_time_spent_with_arch <- run_6_weekly_module_time_spent_for_finisher |>
     merge(y = activity_6_learner_progress_archetype[,c("learner_id", "archetype")], by=c("learner_id"), all.x = TRUE) |>
     mutate(duration_in_days_int = as.numeric(duration_in_days)) |>
     mutate(run = 6)
@@ -102,7 +102,7 @@ run_7_weekly_module_time_spent_for_finisher <- run_7_activity_with_finish_flag |
     summarise(duration_in_days = difftime(max(last_completed_at), min(first_visited_at), units = "days"))
 
 # Merge to get the archetype
-run_7_weekly_module_time_spent_with_arch <- weekly_module_time_spent_for_finisher |>
+run_7_weekly_module_time_spent_with_arch <- run_7_weekly_module_time_spent_for_finisher |>
     merge(y = activity_7_learner_progress_archetype[,c("learner_id", "archetype")], by=c("learner_id"), all.x = TRUE) |>
     mutate(duration_in_days_int = as.numeric(duration_in_days)) |>
     mutate(run = 7)
@@ -116,3 +116,6 @@ weekly_module_time_spent_with_arch <- rbind(
     run_7_weekly_module_time_spent_with_arch
 )
 
+weekly_module_time_spent_with_arch$week_number <- as.factor(weekly_module_time_spent_with_arch$week_number)
+
+cache('weekly_module_time_spent_with_arch')

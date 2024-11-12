@@ -62,3 +62,11 @@ activity_7_learner_progress_archetype <- activity_7 |>
     mutate(finish_percentage = percentage_of_course_success(steps_finished, steps_in_run_7)) |>
     mutate(finish = finish_percentage>80) |>
     merge(y=arch_7[,c('learner_id', 'archetype')], by="learner_id", all.x=TRUE)
+
+cache('activity_1_learner_progress_archetype')
+cache('activity_2_learner_progress_archetype')
+cache('activity_3_learner_progress_archetype')
+cache('activity_4_learner_progress_archetype')
+cache('activity_5_learner_progress_archetype')
+cache('activity_6_learner_progress_archetype')
+cache('activity_7_learner_progress_archetype')

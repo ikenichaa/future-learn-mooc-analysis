@@ -6,3 +6,11 @@ enroll_4 <- cyber.security.4_enrolments |> filter(role=='learner' & unenrolled_a
 enroll_5 <- cyber.security.5_enrolments |> filter(role=='learner' & unenrolled_at == '')
 enroll_6 <- cyber.security.6_enrolments |> filter(role=='learner' & unenrolled_at == '')
 enroll_7 <- cyber.security.7_enrolments |> filter(role=='learner' & unenrolled_at == '')
+
+cache('enroll_1')
+cache('enroll_2')
+cache('enroll_3')
+cache('enroll_4')
+cache('enroll_5')
+cache('enroll_6')
+cache('enroll_7')

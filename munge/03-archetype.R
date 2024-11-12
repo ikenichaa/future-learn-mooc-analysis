@@ -47,3 +47,12 @@ for (r in run) {
         }
     }
 }
+
+cache('archetype_counts')
+cache('arch_1')
+cache('arch_2')
+cache('arch_3')
+cache('arch_4')
+cache('arch_5')
+cache('arch_6')
+cache('arch_7')
