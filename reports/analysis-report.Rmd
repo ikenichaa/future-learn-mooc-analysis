@@ -473,13 +473,13 @@ Ignoring the outlier from the plot, *Figure 3* shows the trend that most learner
 boxplot_weekly_module_plot <- weekly_module_time_spent_with_arch |>
     ggplot() + 
     geom_boxplot(aes(x=week_number, y=duration_in_days_int), outliers = FALSE) +
-    labs(x = "week number", y = "duration in days")
+    labs(x = "week module no.", y = "duration in days")
 
 # Annotate figure
 annotate_figure(
   boxplot_weekly_module_plot, 
   top = text_grob(
-          "Box plot shows duration the learner spend to learn each weekly module of the course", 
+          "Box plot shows duration the learner spend to learn each weekly module", 
           face = "bold", 
           size = 12, 
           hjust = 0, 
@@ -510,10 +510,21 @@ kable(duration_too_low[1:3,], caption = "Lower than usual duration to finish the
 
 # 3. Data Preparation
 ## 3.1 Select data
-The CRISP-DM cycle 2 is built on top of the cycle 1, so the data in the first cycle will be used in this round too.
+The CRISP-DM cycle 2 is built on top of the cycle 1, so some data in the first cycle will be used in this round too.
 These are the list of tables for this cycle:
 
-1. 
+1. Activity step: This data will be used to find the duration the learner take to complete each weekly module. The fields that will be used are *learner_id*, *week_number*, *first_visited_at*, and *last_completed_at*.
+2. Learner progress archetype: The data that have been constructed in the previous round will be utilized as it already contains the field *finish* that indicates whether the learner complete the course, along with the field *archetype* that tells the learner type.
+
 ## 3.2 Clean data
+This report believed that the data provided by the Future-Learn is cleaned and valid. The process to clean data in this round is to filter out the data that is not valid for usage, such as the data that have no *last_completed_at*. Also, only successful learner will be modeled to see the time the complete learner take, so the data will only filter to have the learner with *finish* = True. The filter out learner by completion status will be done later after the data has been merged with table *Learner progress archetype* by *learner_id* for finish column.
+
 ## 3.3 Construct data
+After select and filter out the rows, the duration in days is calculate by grouping the learner_id and week_number then find the the *first_visited_at* of that entire week subtract with the last date for *last_completed_at* in the same week. This new table is called *weekly_module_time_spent_for_finisher*. This steps is done on the data of run 3 to 7.
+
 ## 3.4 Integrate data
+Then, the 5 new tables *weekly_module_time_spent_with_arch* for run 3 to 7, are formed by merging *learner progress archetype* to the *weekly_module_time_spent_for_finisher* to get the learner archetype. Lastly, the 5 tables are combined by row to form the big table that contains *learner_id*, *week_number*, *duration_in_days*, and *archetype.* of all 5 runs together.
+
+## 4. Modelling
+
+
