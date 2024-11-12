@@ -554,4 +554,8 @@ Based on the plot in the figure 4, each archetype has a distinct number of durat
 
 For the trend that learner spend less time as the week module number progress that we have explored in the *Figure 3*, this trend is still valid in most of the archetype but not for the *vitalisers* and *fixers* where the learner tend to spend the same amount of time for each weekly module.
 
+## 5. Evaluation
+That concludes the analysis for cycle 2 of the impact of archetype on the time spent on the weekly material. The box plot in *Figure 4* shows that each archetype has its study methodology for the time spent studying the weekly module. The pattern we see can be linked with the definition and characteristics of the learner type. Such as, *fixers* learn to manage the current aspects of their life, so learners of this type tend to finish the course fast. Also, the *vitalisers*, who learn as a hobby and for the love of learning can finish the course quickly and without a rush toward the end. On the contrary, the *explorers* who learn to decide on what to do next tend to take longer to finish a course and rush to finish the course towards the end.
+
+The model and exploratory analysis in this cycle can answer the business objective of the impact of archetypes on the study methods. The graph shown in *Figure 4* is self-explanatory on how the behaviour of learners in each archetype varies.
 
