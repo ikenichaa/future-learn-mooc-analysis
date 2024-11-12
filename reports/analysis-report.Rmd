@@ -559,3 +559,8 @@ That concludes the analysis for cycle 2 of the impact of archetype on the time s
 
 The model and exploratory analysis in this cycle can answer the business objective of the impact of archetypes on the study methods. The graph shown in *Figure 4* is self-explanatory on how the behaviour of learners in each archetype varies.
 
+
+## 6. Deployment
+The first and second cycles of the CRISP-DM can help answer the questions on the impact of the archetype on the study outcome and study method. For the deployment phase, the report and presentation will be delivered to the stakeholders to understand the findings that have been done in this report analysis.
+
+The presentation will include a recap of the business understanding, the data usage and the graphical representation that shows the insight behind the data provided. Lastly, it will end with a summary that will leave users with the key takeaway of the analysis so that the stakeholders can use it to work on their research on learning strategies for the archetype.
