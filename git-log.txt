@@ -1,0 +1,137 @@
+commit cfc722c33beb1e2c17b87bd3ea06730f97a75420
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Wed Nov 13 22:32:55 2024 +0000
+
+    fix: proofreads readme and report
+
+commit 8ff68248347310eadbd33cb1ed72823de53c1eab
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Wed Nov 13 10:59:24 2024 +0000
+
+    feat: add readme to explain the project and how to run it
+
+commit eac4214c5c39fa72804bf6a337e6b1f59ed0883c
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 23:18:51 2024 +0000
+
+    feat: add a deployment phase for the analysis
+
+commit 8332bc9096623faf5a2d6f9f7e2f73abaa3bed78
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 22:09:05 2024 +0000
+
+    feat: add evaluation for cycle 2
+
+commit 79b741a6ea2631544871e50847b30903640590db
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 21:30:36 2024 +0000
+
+    feat: add a duration plot by archetype and description to the modelling phase of cycle 2
+
+commit 942053f9e00eee8ecb644c6b1948272f6bf83ffc
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 19:24:49 2024 +0000
+
+    feat: explain data preparation phase for cycle 2
+
+commit af4dd5eec0992d5d188338b98461314b0efeea31
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 16:25:42 2024 +0000
+
+    feat: add plots and explanation for data exploratory phase for cycle 2
+
+commit 8576b5186bf5b850df44f6286899225b140a77c3
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 16:04:03 2024 +0000
+
+    feat: cache the dataframe in the munge files
+
+commit 27dde30e6e9f065038ca1051e8e78001533ba365
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 14:27:53 2024 +0000
+
+    feat: add munge file weekly module time spent for cycle 2 analysis
+
+commit 07707c248e94041ec8a0731bd66b6e3791d01c3d
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 11:43:22 2024 +0000
+
+    chore: update renv lock
+
+commit 038435d61ca6e07d31ebaf4a27bf5d2b5cc8550f
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Tue Nov 12 11:32:12 2024 +0000
+
+    chore: add report introduction
+
+commit b1e428da1901fe129d3e017d8674b2cd83c55b73
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Mon Nov 11 22:58:56 2024 +0000
+
+    chore: add comment to the code for analysis round 1
+
+commit ab6a742cea400ff42e22171bf49fa34d7a4ce455
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Mon Nov 11 20:18:35 2024 +0000
+
+    chore: review and update the wording in round 1 analysis
+
+commit baa812f9d0e925af31d75ee04729d8b07626b2ad
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Mon Nov 11 20:17:37 2024 +0000
+
+    chore: add data preparation on archetype course completion duration to munge folder
+
+commit 5894d85fdb90734ce6e24bdcef83a2779a180966
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Mon Nov 11 12:08:32 2024 +0000
+
+    feat: add a description for business understanding for crisp dm round 2
+
+commit 6a2e453531ea1a2e9c571bcca4ad699d0c0e0118
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Sun Nov 10 19:20:26 2024 +0000
+
+    feat: add evaluation for round 1
+
+commit ad308c65b105db8fc80118a9650742516bee1825
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Thu Nov 7 15:43:23 2024 +0000
+
+    feat: add modelling phase
+
+commit 2194adbdaf9f951c21e9017fa7838c9b7a4eeb7e
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Wed Nov 6 19:22:02 2024 +0000
+
+    chore: data preparation
+
+commit a21fed6b2626caf0cf15fe3d269aa520f4cbb79a
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Wed Nov 6 16:36:05 2024 +0000
+
+    chore: prepare data for data understanding
+
+commit bc21834ea8996df970a73a5eca3886dfc158939e
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Mon Nov 4 22:47:43 2024 +0000
+
+    feat: add a description for business understanding for crisp dm round one
+
+commit c31aacb99faaa902b6b0ef1068d57e063b322e53
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Thu Oct 31 10:20:28 2024 +0000
+
+    chore: update config for project template
+
+commit 9d6134b6c1df90625a3ea931d39cfc0cdbdbcdf3
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Thu Oct 31 10:18:47 2024 +0000
+
+    chore: update renv lock and gitignore
+
+commit 09df7a4dfb1fe3d7b26f6bc15cbcb312d707c098
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Thu Oct 31 09:34:51 2024 +0000
+
+    init: initiate the project template
