@@ -25,21 +25,24 @@ This report analyses the **impact of archetype on study outcome and methodology*
 # CRISP-DM Round 1
 
 ## 1. Business Understandings
+This phase will focus on understanding the stakeholders' business objectives, assessing the situation based on the data provided, and planning the project steps.
 
 ## 1.1 Determine Business Objective
+The overall business objective of this report is to provide informative research on how archetypes can affect study outcomes and the study method that the successful learner type has. This report will benefit researchers in the education field because they can use the research to motivate and help learners with different archetypes succeed in their study.
+
 The first cycle of this report aims to find the impact of the learner archetype on course completion. This question is the main topic of this research that will shape the following cycle's question. By getting to know whether or not the archetype affects learners' completion rate, the stakeholders can have a general idea of what archetype the learners should have to have a higher chance to complete the course. If there is an archetype that completes the course more than others, the researcher may advise learners to approach the study material with that particular mindset. On the other hand, if the archetype is not a significant factor in course completion, each archetype has a fair chance of completing the course, and it will be investigated further in the next cycle on the study pattern of the archetype.
 
 ## 1.2 Assess Situation 
-The risk for the report is that it relies mainly on the learner’s survey response on their archetype, so the answer may not be accurate in case the learners do not answer truthfully. Moreover, the analysis may not reflect all learners’ method of study as there are only a minority of learners complete the survey. 
+The risk for the report is that it relies mainly on the learner’s survey response on their archetype, so the answer may not be accurate in case the learners do not answer truthfully. Moreover, the analysis may not reflect all learners participated in this online course as there are only a minority of learners complete the survey. 
 
 There is one terminology in this phase, which is the word *learner archetype*. The archetype is the goal and mindset that the learners have when approaching the study. It groups learners with the same goal together. In this report, there are 7 archetypes - advancers, explorers, fixers, flourishers, hobbyists, preparers and vitalisers. To learn more about the archetype, go through this  [link.](https://ugc.futurelearn.com/uploads/files/2f/ce/2fce94dd-54e6-4614-972d-ce9c3a6d7d91/Learner-Archetypes.pdf)
 
 ## 1.3 Determine Data Mining Goals
-To know that the learners' archetype affect online course completion rate, a solid pattern of completion for the archetype on every run must be found. If the completion rate in each archetypes are random, it cannot be deduce that the archetype actually affect the course completion.
+A solid completion rate pattern for individual archetypes on every run must be found to determine whether the learners' archetype affects the online course completion rate. If the completion rate in each archetype is random, it cannot be deduced that the archetype affects the course completion.
 
 Initially, the research question will aim to see the result of the course completion on each archetype. The main research topic for this cycle is: 
 
-**Does the learner archetype affect online course completion rate?** 
+**Does the learner archetype affect the course completion rate?** 
 
 Noted that the *completion* in this report refers to the learners who accomplished more than 80% of the course content.
 
@@ -48,16 +51,22 @@ After come up with a main research topic, the data is going to be cleaned, explo
 
 
 ## 2. Data Understanding
+In this phase, the credibility and data quality will be checked. The table that will be used will be mentioned, and the data will be explored to gain an overall understanding of the course enrolment and learner archetype.
+
 ## 2.1 Collect Initial Data
-Future-Learn collected and provided the data that will be used in this report. For this CRISP-DM cycle, three groups of datasets will be utilized. First is the data of archetype survey responses, which will be used to gather the learner's archetype. Second is the course enrollment data that tells how many people enrolled in each course. Lastly, the course activity determines how far the learner goes through the steps in the course.
+Future-Learn, a UK-based online learning platform that partners with many global universities, collected and provided the data for this report. Based on the company's credibility, the data can be considered valid and safe. For this CRISP-DM cycle, three groups of datasets will be utilized:
+
+1. The data from *archetype survey responses* to gather the learner's archetype.
+2. The *course enrolment* data to know how many people enrolled in each course.
+3. The *course activity step* to determine how far the learner goes through the steps in the course.
 
 ## 2.2 Describe Data
 
-The data is gathered from a course named **Cyber Security: Safety at Home, Online, in Life.** This course is designed to be finished in three weeks. Each week consists of multiple steps, including articles, videos, quizzes, and discussions. From September 2016 to September 2018, the course had been run for 7 times. Throughout the years, steps are added to enhance learner understandings. From `r count(distinct(activity_1, week_number, step_number))` steps in the first run, the run was gradually enhanced to `r count(distinct(activity_7, week_number, step_number))` steps in the seventh run. The datasets of archetype, course enrollment, and course activity are kept for each run.
+The data is gathered from a course named **Cyber Security: Safety at Home, Online, in Life** provided by Newcastle University. This course is designed to be finished in three weeks. Each week consists of multiple steps, including articles, videos, quizzes, and discussions. From September 2016 to September 2018, the course had been run for 7 times. Throughout the years, steps are added to enhance learner understandings. From `r count(distinct(activity_1, week_number, step_number))` steps in the first run, the run was gradually enhanced to `r count(distinct(activity_7, week_number, step_number))` steps in the seventh run. The datasets of archetype, course enrolment, and course activity are kept for each run.
 
 These are the list of tables for this analysis and its field name:
 
-1. Enrollment: `r colnames(cyber.security.1_enrolments)`
+1. Enrolment: `r colnames(cyber.security.1_enrolments)`
 2. Activity Step: `r colnames(cyber.security.1_step.activity)`
 3. Archetype Survey Response: `r colnames(cyber.security.3_archetype.survey.responses)`
 
@@ -65,7 +74,7 @@ The field that are picked for the analysis will be mentioned in part 3.1.
 
 
 ## 2.3 Explore Data
-
+Enrolment and archetype data will be explored to get the overall picture before going further in later phase. Based on summary on *Table 1*, there is a vast difference in each run's enrolment number and finisher. In this report, the learners are considered to complete the course if they finish more than 80% of the module. There is a clear pattern that most people do not finish the course, with the lowest number of finishers compared to the enroller in Run 6 at approximately 10% and the highest number in Run 5 at almost 20%. 
 ```{r, echo=FALSE}
 # Get the enrollment number for each run
 enroll_num <- c(
@@ -108,9 +117,9 @@ rownames(enroll_and_finish_df) <- c('Run 1', 'Run 2', 'Run 3', 'Run 4', 'Run 5',
 kable(enroll_and_finish_df, caption = "Enrollment and course finisher percentage")
 ```
 
-The table above shows a vast difference in the enrollment number and the finisher in each run. In this report, the learners are considered to finish the course if they finish more than or equal to 80% of the activities. There is a clear pattern that most people do not finish the course, with the lowest number of finishers compared to the enroller in Run 6 at approximately 10% and the highest number in Run 5 at almost 20%. 
 
-```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Number of learners by archetype in each run"}
+
+```{r, echo=FALSE, out.width="60%", fig.align='center', fig.cap="Number of learners by archetype in each run"}
 # Construct the theme for subplot
 common_theme <- theme_minimal() +
     theme(
@@ -213,12 +222,14 @@ annotate_figure(
 ```
 
 
-When comparing the number of archetype in each run, it is obvious that the number of each archetype does not distribute evenly among the learners. The top 4 archetypes posess by the learner are *Vitalisers*, *Advancers*, *Explorers* and *Fixers*.
+For number of learner archetypes, *Figure 1* shows that the number of each archetype does not distribute evenly among the learners. The top 4 archetypes are *Vitalisers*, *Advancers*, *Explorers* and *Fixers*.
+
+
 
 
 ## 2.4 Verify Data Quality
 
-The data quality of this round analysis is quite good and there are no missing data in the available table. Although archetype survey response of Run 1 and Run 2 were not kept, the report can still analyse the link between archetype and learner finishing rate from other runs. The only concern is that the survey response rate is low comparing to the enrollment, which will be hard to deduce the result of archetype effect from a whole enrollment population.
+The data quality of this round of analysis is quite good, and there are no missing data. Although the archetype survey responses of Run 1 and Run 2 were not kept, the report can still analyse the link between the archetype and learner finishing rate from Run 3 to Run 7. The only concern is that the survey response rate is low compared to the enrolment, making it hard to deduce the result of the archetype effect from a whole enrolment population.
 
 ```{r, echo=FALSE}
 # Count the number of archetype survey response for each run
@@ -255,17 +266,17 @@ The enrolment data is used just for the exploratory purpose and to understand le
 This data is going to be used as a criteria on finding successful learner. To check that learners completed more than 80% of the steps in the module, the learner_id, week_number, step_number, and last_completed_at will be used.
 
 3. Archetype:
-This table is another main table that will be used along with the activity step. It is needed to know the learner archetype. There are two column being used, learner_id and archetype.
+This table is another main table that will be used along with the activity step. It is needed to know the learner archetype. There are two columns being used, learner_id and archetype.
 
 
 ## 3.2 Clean Data
-The data selected is quite clean, so we are going to clean it just by select the fields needed and keep only the unique rows.
+The data selected is clean, so we will clean it just by selecting the fields needed and keeping only the unique rows.
 
 ## 3.3 Construct Data
-After selected the field, new table is created from attributes in the activity step data set. This new table calls *learner_progress*, which contains learner progress and the archetype. Each run has its own *learner_progress* table. To construct the new table, firstly, count the number of steps each learner finished. Then, compare number of finished steps to number of all steps and put it in *finish_percentage* field. Later, add *finish* field that stores boolean value of whether the steps are complete more than 80%.
+After selecting the field, a new table is created from attributes in the activity step data set. This new table is called *learner_progress*, which contains learner progress and the archetype. Each run has its own *learner_progress* table. To construct the new table, count the number of steps each learner finished. Then, compare the number of each learner's finished steps to the number of all steps and put it in the *finish_percentage* field. Later, add the *finish* field that stores the boolean value of whether the steps are complete more than 80%.
 
 ## 3.4 Integrate Data
-Afterwards, the *learner_progress* table is merged with the archetype table by *learner_id* to show the type of each learner if any. This new table is called *learner_progress_archetype.* Again, each run has its own *learner_progress_archetype* table.
+Afterwards, the *learner_progress* table is merged with the archetype table by *learner_id* to show the type of each learner, if any. This new table is called *learner_progress_archetype*, and each run has its own *learner_progress_archetype* table.
 
 ## 4. Modelling
 ```{r, echo=FALSE}
@@ -337,7 +348,7 @@ incomplete_learner_archetype[is.na(incomplete_learner_archetype)] <- 0
 ```
 
 
-As right now we have all data prepared, we will examine our main research topic for this round, **Does the learner archetype affect online course completion rate?**
+As right now we have all data prepared, we will examine our main research topic for this round, **Does the learner archetype affect the course completion rate?**
 
 ## 4.1 Archetype of learners who completed the course
 Let start by take a look at the table below on the archetype of the learner who complete the course.
@@ -346,7 +357,8 @@ Let start by take a look at the table below on the archetype of the learner who 
 kable(complete_learner_archetype, caption = "Archetype of the learners who complete the course")
 ```
 
-As mentioned before, not many people response to the survey of the archetype, so the majority of learner archetype is unknown. If we ignore unknown type, depends on each run, some archetype perform better than the others. To compare fairly, the data is scaled for each run, so that the number of completers can be compare properly throughout different run. Or else the priority would be given to the run with higher enrollment as higher enrolment has higher chance to have a higher finishers. The brighter color on the heatmap represents more number of successful learners in that archetype.
+As mentioned before, only a few people responded to the survey of the archetype, so most learner archetypes are unknown. If we ignore the unknown type, depending on each run, some archetypes perform better than others. 
+
 
 
 ```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Heatmap showing scaled number of learners who complete the course in each run"}
@@ -389,12 +401,13 @@ annotate_figure(
   )
 )
 ```
+To compare fairly, *Figure 2* scale the data for each run to have the same unit of learner so that the number of completers can be compared properly throughout different runs. Otherwise, the priority would be given to the run with higher enrolment as higher enrolment leads to a higher chance of having a higher finisher. The brighter colour on the heatmap represents more successful learners in that archetype.
 
 
-From the heatmap, it is evident that *vitalisers* archetype perform best in all run comparing to other archetype followed by *advancers* and *explorers*, where they have less completer than the others in some runs. However, it needs to be tackle that did vitalisers perform better just because most people are *vitalisers* or it is really affect the course completion. To check the performance, the success rate vs unsuccess rate for each archetype will be compared.
+The heatmap shows that the *vitalisers* archetype performs best in all runs compared to other archetypes followed by *advancers* and *explorers*, where there are fewer completers in some runs. However, it needs to be tackled whether vitalisers perform better just because most people are *vitalisers* or whether it affects course completion. To check the performance, each archetype's success rate will be compared.
 
 ## 4.2 Success rate for each learners' archetype
-For this part, let we determine the ratio of learner with same archetype that complete or not complete the course. If the success rate within the archetype is high, it can be deduced that the archetype affect the online course completion.
+For this part, let us determine the ratio of learners with the same archetype who complete or do not complete the course. If the success rate within the archetype is high, it can be deduced that the archetype affects the completion of the online course.
 
 ```{r, echo=FALSE}
 # Calculate the percentage of completion rate for each archetype
@@ -425,32 +438,31 @@ success_rate_for_learner_archetype <- success_rate_for_learner_archetype |> relo
 kable(success_rate_for_learner_archetype, caption = "Course completion rate by archetype")
 ```
 
-By checking the percentage of completion on each archetype, the result is low and random among different learner's type in each run. Although the *flourishers* archetype has high completion rate in run 3,4 and 7, the rate is low in the other two. The low success rate among each archetype is not surprising because the overall finish rate as a whole shows in *Table 1* is also low.
-
+By checking the completion percentage on each archetype, the result is low and random among different learner types in each run. Although the *flourishers* archetype has a high completion rate in runs 3,4 and 7, the rate is low in the other two. The low success rate among each archetype is not surprising because the overall finish rate, as shown in *Table 1* is also low.
 
 ## 5. Evaluation
 ## 5.1 Evaluate Results
-After explore the data on archetype and course completion rate thoroughly, the archetype has no distinctive effect on the completion. At first glance, some archetype is standing out to have more number of complete learner but actually that is happening because there are more learner in that archetype as a whole so there is a higher chance for learners in that archetype to finish the course more. When comparing the success rate for each archetype, the result is too random in all archetype to have a significant impact on the course completion. Although the rate of completion of the learner with known archetype is more than the overall completion rate, there is a lack of solid pattern among the archetype in each run. Based on the findings, the archetype does not affect whether or not learner finish the online course.
+After thoroughly exploring the data on archetypes and course completion rates, the archetypes have no distinctive effect on completion. At first glance, some archetypes stand out as having more complete learners, but that is happening because there are more learners in that archetype, so there is a higher chance for learners in that archetype to finish the course more. When comparing the success rate for each archetype, the result is too random in all archetypes to significantly impact the course completion. Although the learner's completion rate with the known archetype is higher than the overall completion rate, there must be a more solid pattern among the archetypes in each run to conclude that the archetype impacts course completion. 
 
 ## 5.2 Review Process
 Data wrangling and data exploration have been revisited. The results provided above are legit.
 
 ## 5.3 Determine next steps
-As the archetype is not the factor of course completion, the stakeholders would like to know further on the strategy that each archetype uses to finish the online course successfully. For the next phase, the research will investigate the study pattern that can lead to success in online course completion for each archetype.
+As the archetype is not the factor of course completion, the stakeholders would like to know more about each archetype's strategy to finish the online course successfully. For the next phase, the research will investigate the study pattern that can lead to success in online course completion for each archetype.
 
 # CRISP-DM Round 2
 ## 1. Business Understanding
-In this round, we are going to investigate the user success rate through users' actions in the course and compare it with archetype.
+In this round, we will investigate the user success rate through users' actions in the course and compare it with the archetype.
 
 ## 1.1 Determine Business Objective
-The stakeholder wants to know the learner archetype study pattern contributing to course completion success. As archetypes alone cannot contribute directly to the completion rate, other factors that lead to success among archetypes will be explored further.
+The stakeholder wants to know how each learner archetype approaches the course that leads to completion. As archetypes alone cannot contribute directly to the completion rate, other factors that lead to success among archetypes will be explored further.
 
 ## 1.2 Assess Situation
-In this phase, the primary data still rely on the user survey response, which is limited, and the archetype distribution is not symmetrical, so the result may not represent the entire archetype population perfectly. As new data is needed to see the action of each learner archetype, new data is added to this scope to calculate the time it takes for each learner to finish the weekly module of the course. This report will assume that the data were collected accurately and can be used straight away.
+In this phase, the primary data still rely on the user survey response, which is limited, and the archetype distribution is not symmetrical, so the result may not represent the entire archetype population perfectly. As new data is needed to see the action of each learner archetype, new data is added to this scope to calculate the time it takes for each learner to finish the weekly module of the course. This report will assume that the data were collected accurately and can be used immediately.
 
 
 ## 1.3 Determine Data Mining Goals
-The action made by the learners when studying the online courses must be explored to see the pattern that the successful learner with different archetype have. The action chosen to be determined is the time spent to finish a week material of the online course. As the only way to complete the whole online course is to finish each small steps, seeing how long the learner spent to finish each weekly module is a good start to know the characteristics of learner archetype approach to finish the online material.
+One action made by the learners when studying online courses will be explored in this cycle to see the pattern of the successful learner with different archetypes. The action chosen to be determined is the time spent finishing a week of online course material. As the only way to complete the online course is to finish each small step, seeing how long the learner spent finishing each weekly module is a good start to knowing the characteristics of the learner archetype approach to finish the online material.
 
 Therefore, the main research topic for the second cycle is:
 **Does the successful learner in each archetype have a unique pattern in time spent on learning weekly material?**
@@ -460,12 +472,51 @@ Therefore, the main research topic for the second cycle is:
 The project plan is similar to the previous phase. The data will be cleaned, explored, analysed, and evaluated using R language. The insights are gained through statistical summary and visualisation.
 
 ## 2. Data Understanding
-Two datasets as the previous cycle are used, the archetype survey responses and course step activity. However, the detail of data used in step activity will be different as it will be looked in a new question with a new perspective. 
+Two datasets as the previous cycle are used: the archetype survey responses and the course activity step. However, the data details used in the activity step will differ as we will examine a new question with a new perspective. 
 
-## 2.1 Explore data
-In this phase, let's explore the time to complete sub module without taking a look at the archetype yet. The activity step table has columns *first_visited_at* and *last_completed_at* for each steps in the course. When grouping the week number and learner id together, the duration that each learner take to complete the weekly module in each course can be calculated. The *Figure 3* below calculated the duration in days that the successful learner, the learner with more than 80% course completion rate, took to complete the weekly material in run 3 to 7. Run 1 and 2 are ignore because they don't have survey response on archetype that will be used to analyse later on.
+## 2.1 Verify data quality
+From the dataset, many rows spend too little time to complete the weekly course. For example, the data in *Table 5* shows that the learner only takes 1 minute or less to complete each step. With this small amount of time, the learner may skim through the course without finishing it, which does not show the actual complete date as the data aims to show. However, there is no method to distinguish whether the learner completed the course or just skimmed through the course, so this report will proceed with the data given.
+```{r, include=FALSE}
+# Filter data that has too low duration
+weekly_module_time_spent_with_arch |> filter(duration_in_days_int < 0.005)
 
-Ignoring the outlier from the plot, *Figure 3* shows the trend that most learner that complete the course finished the weekly module within a week. Additionally, most people spend less time as the week module number progress, meaning that the week 3 module is complted faster than the week 1. This exploration is promising in a way that it shows the pattern that genrally finishing the course within the online course recommended time-frame can boost the online course completion rate.
+# Check the learner id with low duration
+duration_too_low <- cyber.security.3_step.activity |> 
+    filter(learner_id == "0ddd3caa-1dde-4679-919e-bfb3c63da321" & week_number == 1) |>
+    select(step, step_number, first_visited_at, last_completed_at)
+```
+
+
+```{r, echo=FALSE}
+# Show the result as a table
+kable(duration_too_low[1:3,], caption = "Lower than usual duration to finish the course")
+```
+
+## 3. Data Preparation
+In this phase, the steps of data preparation will be shown. As the CRISP-DM cycle 2 is built on top of cycle 1, some data in the first cycle will also be used in this round.
+
+## 3.1 Select data
+These are the list of tables and the fields used in this cycle:
+
+1. Activity step: This data will be used to find the learner's duration to complete each weekly module. The fields that will be used are *learner_id*, *week_number*, *first_visited_at*, and *last_completed_at*.
+2. Learner progress archetype: The data constructed in the previous round will be utilized as it already contains the field *finish*, which indicates whether the learner completes the course, along with the field *archetype* that tells the learner type.
+
+## 3.2 Clean data
+This report believes that the data provided by the Future-Learn is clean and valid. The process of cleaning data in this round is to filter out the data that is not valid for usage, such as the data that has no *last_completed_at*. 
+
+## 3.3 Construct data
+After selecting and filtering out the rows, the duration in days is calculated by grouping the *learner_id* and *week_number*, then finding the *first_visited_at* of that entire week and subtracting with the last date for *last_completed_at* in the same week. This new table is called *weekly_module_time_spent_for_finisher*. This step is done on the data of runs 3 to 7. Also, only the successful learner will be modelled to see the time the complete learner takes, so the data will only filter to have the learner with *finish* = True.  
+
+## 3.4 Integrate data
+Then, the five new tables *weekly_module_time_spent_with_arch* for runs 3 to 7 are formed by merging *learner progress archetype* to the *weekly_module_time_spent_for_finisher* to get the learner archetype. Lastly, the five tables are combined by row to create the big table that contains *learner_id*, *week_number*, *duration_in_days*, and *archetype* of all five runs together. 
+
+## 4. Modelling
+With all data prepared, the duration graph is ready to plot, but before going into the archetype, let's explore the general duration it takes for the learner who completes the course.
+
+## 4.1 Duration the learner who complete the course spend on weekly material
+This part will explore the time to complete the weekly module without looking at the archetype. *Figure 3* calculated the days the successful learner, the learner with more than 80% course completion rate, took to complete the weekly material in runs 3 to 7. Run 1 and 2 are ignored because they don't have survey responses on archetypes that will be used to analyse later on.
+
+Ignoring the outlier from the plot, *Figure 3* shows the trend that most learners who complete the course finished the weekly module within a week. Additionally, most people spend less time as the week module number progresses, meaning the week 3 module is completed faster than the week 1. This exploration is promising in that it shows the pattern that most course completers generally finish the course within 1 week, the recommended time frame of the online course, which can boost the online course completion rate.
 
 ```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Box plot shows duration the learner spend to learn each weekly module of the course"}
 # Plot the duration spend to learn each weekly module
@@ -488,45 +539,10 @@ annotate_figure(
 )
 ```
 
+## 4.2 Duration the each learner archetype who complete the course spend on weekly material
+Based on the plot in *Figure 4*, each archetype has a distinct duration to finish the weekly module. Learners from all archetypes mostly take less than 10 days to complete the weekly material. Three archetypes that take less time to study are *flourishers*, *preparers*, *fixers* in which most people took less than 10 days to complete a weekly module. On the contrary, other archetypes that are not mentioned have more variability in the time learners took to complete the module. For example, some of the *explorers* may use a day or a few to complete the course, but some *explorers* also took a month to complete the course.
 
-## 2.2 Verify data quality
-When going through the data, there are many rows that have too low time to complete the weekly course. For example, the data in the table 5 shows that the learner only take 1 minute or less to complete each step. With this small amount of time, the learner may just skim through the course without finishing it, which is not shows the real complete date like the table claims to. However, there is no method to distinguish that the learner complete the course or just skim through the course, so this report will proceed with the data given.
-```{r, include=FALSE}
-# Filter data that has too low duration
-weekly_module_time_spent_with_arch |> filter(duration_in_days_int < 0.005)
-
-# Check the learner id with low duration
-duration_too_low <- cyber.security.3_step.activity |> 
-    filter(learner_id == "0ddd3caa-1dde-4679-919e-bfb3c63da321" & week_number == 1) |>
-    select(step, step_number, first_visited_at, last_completed_at)
-```
-
-
-```{r, echo=FALSE}
-# Show the result as a table
-kable(duration_too_low[1:3,], caption = "Lower than usual duration to finish the course")
-```
-
-# 3. Data Preparation
-## 3.1 Select data
-The CRISP-DM cycle 2 is built on top of the cycle 1, so some data in the first cycle will be used in this round too.
-These are the list of tables for this cycle:
-
-1. Activity step: This data will be used to find the duration the learner take to complete each weekly module. The fields that will be used are *learner_id*, *week_number*, *first_visited_at*, and *last_completed_at*.
-2. Learner progress archetype: The data that have been constructed in the previous round will be utilized as it already contains the field *finish* that indicates whether the learner complete the course, along with the field *archetype* that tells the learner type.
-
-## 3.2 Clean data
-This report believed that the data provided by the Future-Learn is cleaned and valid. The process to clean data in this round is to filter out the data that is not valid for usage, such as the data that have no *last_completed_at*. Also, only successful learner will be modeled to see the time the complete learner take, so the data will only filter to have the learner with *finish* = True. The filter out learner by completion status will be done later after the data has been merged with table *Learner progress archetype* by *learner_id* for finish column.
-
-## 3.3 Construct data
-After select and filter out the rows, the duration in days is calculate by grouping the learner_id and week_number then find the the *first_visited_at* of that entire week subtract with the last date for *last_completed_at* in the same week. This new table is called *weekly_module_time_spent_for_finisher*. This steps is done on the data of run 3 to 7.
-
-## 3.4 Integrate data
-Then, the 5 new tables *weekly_module_time_spent_with_arch* for run 3 to 7, are formed by merging *learner progress archetype* to the *weekly_module_time_spent_for_finisher* to get the learner archetype. Lastly, the 5 tables are combined by row to form the big table that contains *learner_id*, *week_number*, *duration_in_days*, and *archetype.* of all 5 runs together.
-
-## 4. Modelling
-With all data prepare ready, the duration graph for each archetype is ready to plot.
-
+For the trend that learners spend less time as the week module number progresses that we have explored in *Figure 3*, this trend is still valid in most of the archetypes but not for the *vitalisers* and *fixers* where the learner tends to spend the same amount of time for each weekly module.
 ```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="The duration it takes the successful learner to complete weekly module by archetype"}
 # Plot the duration it takes the successful learner to complete weekly module by archetype
 duration_each_archetype_plot <- weekly_module_time_spent_with_arch |>
@@ -550,17 +566,15 @@ annotate_figure(
 )
 ```
 
-Based on the plot in the figure 4, each archetype has a distinct number of duration to finish the weekly module. Mostly, learner from all archetype take less than 10 days to complete the weekly material. Three archetypes that take less time to study are *flourishers*, *preparers*, *fixers* in which they most people took less than 10 days to complete a weekly module. On the contrary, other archetype that have not been mentioned have more variability in the time learners took to complete the module. For example, some of the *explorers* may use a day or few to complete the course, but there are some people that took a month to complete the course too.
 
-For the trend that learner spend less time as the week module number progress that we have explored in the *Figure 3*, this trend is still valid in most of the archetype but not for the *vitalisers* and *fixers* where the learner tend to spend the same amount of time for each weekly module.
 
 ## 5. Evaluation
-That concludes the analysis for cycle 2 of the impact of archetype on the time spent on the weekly material. The box plot in *Figure 4* shows that each archetype has its study methodology for the time spent studying the weekly module. The pattern we see can be linked with the definition and characteristics of the learner type. Such as, *fixers* learn to manage the current aspects of their life, so learners of this type tend to finish the course fast. Also, the *vitalisers*, who learn as a hobby and for the love of learning can finish the course quickly and without a rush toward the end. On the contrary, the *explorers* who learn to decide on what to do next tend to take longer to finish a course and rush to finish the course towards the end.
+That concludes the analysis for cycle 2 of the impact of archetype on the time spent on the weekly material. The box plot in *Figure 4* shows that each archetype has its study methodology for the time spent studying the weekly module. The pattern we see can be linked with the definition and characteristics of the learner type. Such as, *fixers* learn to manage the current aspects of their life, so learners of this type tend to finish the course fast. Also, the *vitalisers*, who learn as a hobby and for the love of learning, can finish the course quickly and without a rush toward the end. On the contrary, the *explorers* who learn to decide what to do next tend to take longer to finish a course and rush to finish the course towards the end.
 
 The model and exploratory analysis in this cycle can answer the business objective of the impact of archetypes on the study methods. The graph shown in *Figure 4* is self-explanatory on how the behaviour of learners in each archetype varies.
 
 
 ## 6. Deployment
-The first and second cycles of the CRISP-DM can help answer the questions on the impact of the archetype on the study outcome and study method. For the deployment phase, the report and presentation will be delivered to the stakeholders to understand the findings that have been done in this report analysis.
+To conclude, the first cycle of the CRISP-DM can help answer the questions on the impact of the archetype on the study outcome. The second cycle also uses the study duration to show each archetype's learning methods. For the deployment phase, the report and presentation will be delivered to the stakeholders to help them understand the findings of this report analysis.
 
 The presentation will include a recap of the business understanding, the data usage and the graphical representation that shows the insight behind the data provided. Lastly, it will end with a summary that will leave users with the key takeaway of the analysis so that the stakeholders can use it to work on their research on learning strategies for the archetype.

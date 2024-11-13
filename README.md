@@ -7,7 +7,7 @@ This report analyses the online course _Cyber Security: Safety at Home, Online, 
 The important files are located in these folders:
 
 - `Data` – store the CSV files of datasets.
-- `Cache` – cached of the data frame to be used in the report.
+- `Cache` – cache of the data frame to be used in the report.
 - `Config` – config the project template.
 - `Munge` – store R script for pre-processing files.
 - `Report` – store the report analysis.
