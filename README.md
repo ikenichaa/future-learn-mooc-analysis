@@ -16,6 +16,7 @@ The important files are located in these folders:
 
 1. Download R Studio.
 2. Open R studio and click `File > Open project...` then choose this project.
-3. On the console, run `install.packages('ProjectTemplate')`.
+3. On the console, run `install.packages('renv')`.
+4. Restore all packages by running `renv::restore()`
 4. Then, go to the reports directory and open the `analysis-report.Rmd` file.
 5. On top of the code section, click `Knit to PDF`, then wait for the PDF to be created and opened.
