@@ -1,3 +1,27 @@
+commit 130b7725efc0499334c955201ad8491fcc7f738c
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Thu Nov 14 09:56:12 2024 +0000
+
+    chore: update renv snapshot type to r
+
+commit abb46eba89731ff8a02c45ff281e5e66b4d37c25
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Thu Nov 14 09:55:43 2024 +0000
+
+    fix: fix spelling error
+
+commit ca42c43491cdb7fe8303c410f40a774616467f75
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Wed Nov 13 22:34:15 2024 +0000
+
+    chore: commit the analysis report pdf
+
+commit b11bc6341dfd62592e720cb1c9240c2c6fa9eee4
+Author: Nicha <nicha.wilanan@gmail.com>
+Date:   Wed Nov 13 22:33:52 2024 +0000
+
+    chore: store git log to a file
+
 commit cfc722c33beb1e2c17b87bd3ea06730f97a75420
 Author: Nicha <nicha.wilanan@gmail.com>
 Date:   Wed Nov 13 22:32:55 2024 +0000
