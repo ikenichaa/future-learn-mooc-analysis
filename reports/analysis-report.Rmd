@@ -1,5 +1,5 @@
 ---
-title: "Impact of learner archetype on study outcome and study method"
+title: "Impact of learner archetype on study completion and study approach"
 author: "Nicha Wilanan"
 date: "Semester 1 2024/2025"
 output:
@@ -20,7 +20,7 @@ load.project()
 ```
 
 # Introduction
-This report analyses the **impact of archetype on study outcome and methodology** to answer the questions of the stakeholder, a researcher studying the learning strategies for each archetype for the best outcome. The online course data and survey are the material used to answer the question of how the learner archetype and the study method can impact the successful outcome of studying online courses. The procedure to construct the research is using two cycles of Cross-Industry Standard Process for Data Mining (CRISP-DM). The first cycle will be conducted to examine whether the archetype has an impact on course completion. Then, the second cycle will built on top of the first cycle, depending on the result. If the result suggests that some archetypes successfully dominate the course completion outcome, the second cycle will focus on the behaviour of those archetypes. On the contrary, if the result shows that the archetypes do not contribute to the success, the behaviour of the learners of each archetype who completed the course will be investigated to show the study pattern to finish the online course by different types of learners.
+This report analyses the **impact of archetype on study completion and approach** to answer the questions of the stakeholder, a researcher studying the learning strategies for each archetype for the best approach. The online course data and survey are the material used to answer the question of how the learner archetype and the study method can impact the completion of studying online courses. The procedure to construct the research is using two cycles of Cross-Industry Standard Process for Data Mining (CRISP-DM). The first cycle will be conducted to examine whether the archetype has an impact on course completion. Then, the second cycle will built on top of the first cycle, depending on the result. If the result suggests that some archetypes successfully dominate the course completion outcome, the second cycle will focus on the behaviour of those archetypes. On the contrary, if the result shows that the archetypes do not contribute to the success, the behaviour of the learners of each archetype who completed the course will be investigated to show the study pattern to finish the online course by different types of learners.
 
 # CRISP-DM Round 1
 
@@ -575,6 +575,6 @@ The model and exploratory analysis in this cycle can answer the business objecti
 
 
 ## 6. Deployment
-To conclude, the first cycle of the CRISP-DM can help answer the questions on the impact of the archetype on the study outcome. The second cycle also uses the study duration to show each archetype's learning methods. For the deployment phase, the report and presentation will be delivered to the stakeholders to help them understand the findings of this report analysis.
+To conclude, the first cycle of the CRISP-DM can help answer the questions on the impact of the archetype on the study completion. The second cycle also uses the study duration to show each archetype's learning approach. For the deployment phase, the report and presentation will be delivered to the stakeholders to help them understand the findings of this report analysis.
 
 The presentation will include a recap of the business understanding, the data usage and the graphical representation that shows the insight behind the data provided. Lastly, it will end with a summary that will leave users with the key takeaway of the analysis so that the stakeholders can use it to work on their research on learning strategies for the archetype.
