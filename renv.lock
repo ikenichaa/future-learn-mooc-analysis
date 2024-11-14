@@ -927,20 +927,6 @@
       ],
       "Hash": "4fd8900853b746af55b81fda99da7695"
     },
-    "nclSLR": {
-      "Package": "nclSLR",
-      "Version": "0.1.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "grDevices",
-        "graphics",
-        "plyr",
-        "stats"
-      ],
-      "Hash": "91a8cb51a2b6e63ed0740b4e4f2d4224"
-    },
     "nlme": {
       "Package": "nlme",
       "Version": "3.1-164",
