@@ -14,9 +14,9 @@ The important files are located in these folders:
 
 ## How to run the project:
 
-1. Download R Studio.
-2. Open R studio and click `File > Open project...` then choose this project.
+1. Download RStudio.
+2. Click on the file `future-learn-mooc-analysis.Rproj` to open the project in RStudio.
 3. On the console, run `install.packages('renv')`.
-4. Restore all packages by running `renv::restore()`
-4. Then, go to the reports directory and open the `analysis-report.Rmd` file.
-5. On top of the code section, click `Knit to PDF`, then wait for the PDF to be created and opened.
+4. Download packages by running `renv::restore()`
+5. Then, go to the reports directory and open the `analysis-report.Rmd` file.
+6. On top of the code section, click `Knit to PDF`, then wait for the PDF to be created and opened.
