@@ -19,6 +19,7 @@ library(ProjectTemplate)
 load.project()
 ```
 
+
 # Introduction
 This report analyses the **impact of archetype on study completion and approach** to answer the questions of the stakeholder, a researcher studying the learning strategies for each archetype for the best approach. The online course data and survey are the material used to answer the question of how the learner archetype and the study method can impact the completion of studying online courses. The procedure to construct the research is using two cycles of Cross-Industry Standard Process for Data Mining (CRISP-DM). The first cycle will be conducted to examine whether the archetype has an impact on course completion. Then, the second cycle will built on top of the first cycle, depending on the result. If the result suggests that some archetypes successfully dominate the course completion outcome, the second cycle will focus on the behaviour of those archetypes. On the contrary, if the result shows that the archetypes do not contribute to the success, the behaviour of the learners of each archetype who completed the course will be investigated to show the study pattern to finish the online course by different types of learners.
 
@@ -119,7 +120,7 @@ kable(enroll_and_finish_df, caption = "Enrollment and course finisher percentage
 
 
 
-```{r, echo=FALSE, out.width="60%", fig.align='center', fig.cap="Number of learners by archetype in each run"}
+```{r, echo=FALSE, out.width="65%", fig.align='center', fig.cap="Number of learners by archetype in each run"}
 # Construct the theme for subplot
 common_theme <- theme_minimal() +
     theme(
@@ -135,9 +136,8 @@ common_scale <- scale_fill_manual(
         "Advancers" = "#F08080",
         "Explorers" = "#DAA520",
         "Fixers" = "#90EE90",
-        "Flourishers" = "#98FB98",
+        "Flourishers" = "#A7C7E7",
         "Hobbyists" = "#40E0D0",
-        "Other" = "#87CEEB",
         "Preparers" = "#DDA0DD",
         "Vitalisers" = "#FF69B4"
     )
@@ -270,7 +270,7 @@ This table is another main table that will be used along with the activity step.
 
 
 ## 3.2 Clean Data
-The data selected is clean, so we will clean it just by selecting the fields needed and keeping only the unique rows.
+The data selected is clean, so we will clean it just by selecting the fields needed and keeping only the unique rows. Also, as there are main 7 archetypes in this report, the archetype name *Other* will be removed from the report to prevent any confusion.
 
 ## 3.3 Construct Data
 After selecting the field, a new table is created from attributes in the activity step data set. This new table is called *learner_progress*, which contains learner progress and the archetype. Each run has its own *learner_progress* table. To construct the new table, count the number of steps each learner finished. Then, compare the number of each learner's finished steps to the number of all steps and put it in the *finish_percentage* field. Later, add the *finish* field that stores the boolean value of whether the steps are complete more than 80%.
@@ -288,7 +288,7 @@ a_3_summary <- activity_3_learner_progress_archetype |>
     mutate(Run = "3") |>
     mutate(Preparers = 0) |>
     relocate(Run, .after = finish) |>
-    relocate(Preparers, .after = Other)
+    relocate(Preparers, .after = Hobbyists)
 
 # Construct the summary table for run 4 on the number of learners who complete and not complete the course by archetype
 a_4_summary <- activity_4_learner_progress_archetype |> 
@@ -361,9 +361,9 @@ As mentioned before, only a few people responded to the survey of the archetype,
 
 
 
-```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Heatmap showing scaled number of learners who complete the course in each run"}
+```{r, include=FALSE}
 # Filter archetype and scale the data by row
-scale_complete <- subset(complete_learner_archetype, select=-c(Run, Other, `NA`)) |>
+scale_complete <- subset(complete_learner_archetype, select=-c(Run, `NA`)) |>
     apply(1, scale) |> as.data.frame()
 
 # Add column name
@@ -406,6 +406,44 @@ To compare fairly, *Figure 2* scale the data for each run to have the same unit 
 
 The heatmap shows that the *vitalisers* archetype performs best in all runs compared to other archetypes followed by *advancers* and *explorers*, where there are fewer completers in some runs. However, it needs to be tackled whether vitalisers perform better just because most people are *vitalisers* or whether it affects course completion. To check the performance, each archetype's success rate will be compared.
 
+```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Heatmap showing scaled number of learners who complete the course in each run"}
+# Prepare data to plot
+number_of_complete_learner_per_archetype <- subset(complete_learner_archetype, select=-c(`NA`)) |>
+        pivot_longer(cols = !Run, names_to = "archetype", values_to = "number_of_complete_learner")
+
+# Fill data with NA to 0
+number_of_complete_learner_per_archetype[is.na(number_of_complete_learner_per_archetype)] <- 0
+
+# Plot the graph of number of complete learner per archetype
+number_of_complete_learner_per_archetype |>
+    ggplot() +
+    geom_bar(
+        aes(x = archetype, y = number_of_complete_learner, fill = archetype), 
+        stat='identity', 
+        position="dodge"
+    ) +
+    facet_wrap(~Run, labeller = as_labeller(
+        c('3' = 'Run 3', '4' = 'Run 4', '5' = 'Run 5', '6' = 'Run 6', '7' = 'Run 7')
+    )) +
+    scale_fill_manual(
+        name = "Archetype",
+        values = c(
+            "Advancers" = "#F08080",
+            "Explorers" = "#DAA520",
+            "Fixers" = "#90EE90",
+            "Flourishers" = "#A7C7E7",
+            "Hobbyists" = "#40E0D0",
+            "Preparers" = "#DDA0DD",
+            "Vitalisers" = "#FF69B4"
+        )
+    ) +
+    theme(
+        axis.text.x=element_blank()
+    ) +
+    labs(x='Archetype', y='Number of complete learner', title = 'Number of complete learner by archetype on each run')
+```
+
+
 ## 4.2 Success rate for each learners' archetype
 For this part, let us determine the ratio of learners with the same archetype who complete or do not complete the course. If the success rate within the archetype is high, it can be deduced that the archetype affects the completion of the online course.
 
@@ -421,9 +459,6 @@ success_rate_for_learner_archetype[is.na(success_rate_for_learner_archetype)] <-
 
 # Add percentage symbol
 success_rate_for_learner_archetype[] <- lapply(success_rate_for_learner_archetype, function(x) paste(format(x, nsmall=2), "%"))
-
-# Remove other archetype
-success_rate_for_learner_archetype <- subset(success_rate_for_learner_archetype, select=-c(Other))
 
 # Add field run
 success_rate_for_learner_archetype$Run <- c('3', '4', '5', '6', '7')
@@ -546,7 +581,7 @@ For the trend that learners spend less time as the week module number progresses
 ```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="The duration it takes the successful learner to complete weekly module by archetype"}
 # Plot the duration it takes the successful learner to complete weekly module by archetype
 duration_each_archetype_plot <- weekly_module_time_spent_with_arch |>
-    filter(archetype != '<NA>' & archetype != 'Other') |>
+    filter(archetype != '<NA>') |>
     ggplot() + 
     geom_boxplot(aes(x=week_number, y=duration_in_days_int)) +
     facet_grid(. ~ archetype) + 

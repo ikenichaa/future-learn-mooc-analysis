@@ -1,11 +1,11 @@
 # Read the archetype survey response for all runs
-arch_1 <- cyber.security.1_archetype.survey.responses
-arch_2 <- cyber.security.2_archetype.survey.responses
-arch_3 <- cyber.security.3_archetype.survey.responses
-arch_4 <- cyber.security.4_archetype.survey.responses
-arch_5 <- cyber.security.5_archetype.survey.responses
-arch_6 <- cyber.security.6_archetype.survey.responses
-arch_7 <- cyber.security.7_archetype.survey.responses
+arch_1 <- cyber.security.1_archetype.survey.responses |> filter(archetype != 'Other')
+arch_2 <- cyber.security.2_archetype.survey.responses |> filter(archetype != 'Other')
+arch_3 <- cyber.security.3_archetype.survey.responses |> filter(archetype != 'Other')
+arch_4 <- cyber.security.4_archetype.survey.responses |> filter(archetype != 'Other')
+arch_5 <- cyber.security.5_archetype.survey.responses |> filter(archetype != 'Other')
+arch_6 <- cyber.security.6_archetype.survey.responses |> filter(archetype != 'Other')
+arch_7 <- cyber.security.7_archetype.survey.responses |> filter(archetype != 'Other')
 
 # Choose only learner id and archetype
 arch_1 <- arch_1[, c('learner_id', 'archetype')]
@@ -29,12 +29,12 @@ arch_7$run <- "7"
 archetype <- rbind(arch_1, arch_2, arch_3, arch_4, arch_5, arch_6, arch_7)
 
 # Count the number of each archetype in each run
-archetype_counts <- archetype %>%
-    group_by(run, archetype) %>%
-    summarise(count = n(), .groups = 'drop')
+archetype_counts <- archetype |>
+    group_by(run, archetype) |>
+    summarize(count = n(), .groups = 'drop')
 
 archetype_str <- c('Advancers', 'Explorers', 'Fixers', 'Flourishers', 'Hobbyists',
-                   'Other', 'Vitalisers', 'Preparers')
+                   'Vitalisers', 'Preparers')
 
 run <- c('1', '2', '3', '4', '5', '6')
 
