@@ -31,6 +31,7 @@ activity_7 <- cyber.security.7_step.activity |>
     filter(last_completed_at != "") |>
     select(learner_id, week_number, step_number)
 
+# Cache the dataframe
 cache('activity_1')
 cache('activity_2')
 cache('activity_3')

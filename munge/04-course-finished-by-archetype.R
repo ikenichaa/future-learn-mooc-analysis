@@ -1,3 +1,4 @@
+# Function to calculate the percentage of course success
 percentage_of_course_success <- function(count_steps, all_steps) {
     return (count_steps/all_steps * 100)
 }
@@ -63,6 +64,7 @@ activity_7_learner_progress_archetype <- activity_7 |>
     mutate(finish = finish_percentage>80) |>
     merge(y=arch_7[,c('learner_id', 'archetype')], by="learner_id", all.x=TRUE)
 
+# Cache the result
 cache('activity_1_learner_progress_archetype')
 cache('activity_2_learner_progress_archetype')
 cache('activity_3_learner_progress_archetype')

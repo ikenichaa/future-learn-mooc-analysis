@@ -7,6 +7,7 @@ enroll_5 <- cyber.security.5_enrolments |> filter(role=='learner' & unenrolled_a
 enroll_6 <- cyber.security.6_enrolments |> filter(role=='learner' & unenrolled_at == '')
 enroll_7 <- cyber.security.7_enrolments |> filter(role=='learner' & unenrolled_at == '')
 
+# Cache the dataframe
 cache('enroll_1')
 cache('enroll_2')
 cache('enroll_3')

@@ -48,6 +48,7 @@ for (r in run) {
     }
 }
 
+# Cache the dataframe
 cache('archetype_counts')
 cache('arch_1')
 cache('arch_2')

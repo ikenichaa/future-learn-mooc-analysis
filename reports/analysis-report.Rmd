@@ -1,5 +1,7 @@
 ---
-title: "Impact of learner archetype on study completion and study approach"
+title: | 
+    | Impact of learner archetype on
+    | study completion and study approach
 author: "Nicha Wilanan"
 date: "Semester 1 2024/2025"
 output:
@@ -21,7 +23,7 @@ load.project()
 
 
 # Introduction
-This report analyses the **impact of archetype on study completion and approach** to answer the questions of the stakeholder, a researcher studying the learning strategies for each archetype for the best approach. The online course data and survey are the material used to answer the question of how the learner archetype and the study method can impact the completion of studying online courses. The procedure to construct the research is using two cycles of Cross-Industry Standard Process for Data Mining (CRISP-DM). The first cycle will be conducted to examine whether the archetype has an impact on course completion. Then, the second cycle will built on top of the first cycle, depending on the result. If the result suggests that some archetypes successfully dominate the course completion outcome, the second cycle will focus on the behaviour of those archetypes. On the contrary, if the result shows that the archetypes do not contribute to the success, the behaviour of the learners of each archetype who completed the course will be investigated to show the study pattern to finish the online course by different types of learners.
+This report analyses the **impact of archetype on study completion and approach** to answer the questions of the stakeholder, a researcher studying the learning strategies for each archetype. The online course data and survey are the material used to answer the question of how the learner archetype and the study method can impact the completion of studying online courses. The procedure to construct the research is using two cycles of Cross-Industry Standard Process for Data Mining (CRISP-DM). The first cycle will be conducted to examine whether the archetype has an impact on course completion. Then, the second cycle will built on top of the first cycle, depending on the result. If the result suggests that some archetypes successfully dominate the course completion outcome, the second cycle will focus on the behaviour of those archetypes. On the contrary, if the result shows that the archetypes do not contribute to the success, the behaviour of the learners of each archetype who completed the course will be investigated to show the study pattern to finish the online course by different types of learners.
 
 # CRISP-DM Round 1
 
@@ -121,6 +123,7 @@ kable(enroll_and_finish_df, caption = "Enrollment and course finisher percentage
 
 
 ```{r, echo=FALSE, out.width="60%", fig.align='center', fig.cap="Number of learners by archetype in each run"}
+# Plot the graph of number of  learners by archetype in each run
 archetype_counts |>
     ggplot() +
     geom_bar(
@@ -279,10 +282,11 @@ As right now we have all data prepared, we will examine our main research topic 
 ## 4.1 Archetype of learners who completed the course
 
 ```{r, echo=FALSE}
+# Shows the table Archetype of the learners who complete the course 
 kable(complete_learner_archetype, caption = "Archetype of the learners who complete the course")
 ```
 
-Let's start by taking a look at *Table 1* on the archetype of the learner who completes the course. As mentioned before, only a few people responded to the survey of the archetype, so most learner archetypes are unknown. If we ignore the unknown type, depending on each run, some archetypes perform better than others.  
+Let's start by taking a look at *Table 3* on the archetype of the learner who completes the course. As mentioned before, only a few people responded to the survey of the archetype, so most learner archetypes are unknown. If we ignore the unknown type, depending on each run, some archetypes perform better than others.  
 
 
 ```{r, echo=FALSE, out.width="60%", fig.align='center', fig.cap="Bar chart shows the number of learners who complete the course in each run"}
@@ -351,7 +355,7 @@ success_rate_for_learner_archetype <- success_rate_for_learner_archetype |> relo
 ```
 
 ```{r, echo=FALSE}
-# Show table
+# Show table of course completion rate by archetype
 kable(success_rate_for_learner_archetype, caption = "Course completion rate by archetype")
 ```
 
@@ -462,10 +466,10 @@ weekly_module_time_spent_with_arch |>
 ## 5. Evaluation
 That concludes the analysis for cycle 2 of the impact of archetype on the time spent on the weekly material. The box plot in *Figure 4* shows that each archetype has its study methodology for the time spent studying the weekly module. The pattern we see can be linked with the definition and characteristics of the learner type. Such as, *fixers* learn to manage the current aspects of their life, so learners of this type tend to finish the course fast. Also, the *vitalisers*, who learn as a hobby and for the love of learning, can finish the course quickly and without a rush toward the end. On the contrary, the *explorers* who learn to decide what to do next tend to take longer to finish a course and rush to finish the course towards the end.
 
-The model and exploratory analysis in this cycle can answer the business objective of the impact of archetypes on the study methods. The graph shown in *Figure 4* is self-explanatory on how the behaviour of learners in each archetype varies.
+The model and exploratory analysis in this cycle can answer the business objective of the impact of archetypes on the study methods. The graph shown in *Figure 4* is self-explanatory on how the behaviour of learners in each archetype varies. For further analysis, other actions of learners, such as weekly sentiment answers and unenrolment survey responses, may be used to study each archetype study approach more closely.
 
 
 ## 6. Deployment
 To conclude, the first cycle of the CRISP-DM can help answer the questions on the impact of the archetype on the study completion. The second cycle also uses the study duration to show each archetype's learning approach. For the deployment phase, the report and presentation will be delivered to the stakeholders to help them understand the findings of this report analysis.
 
-The presentation will include a recap of the business understanding, the data usage and the graphical representation that shows the insight behind the data provided. Lastly, it will end with a summary that will leave users with the key takeaway of the analysis so that the stakeholders can use it to work on their research on learning strategies for the archetype.
+The presentation will include a recap of the business understanding, the data usage and the graphical representation that shows the insight behind the data provided. Lastly, it will end with a summary that will leave users with the key takeaways of the analysis so that the stakeholders can use it to work on their research on learning strategies for the archetype.
