@@ -120,111 +120,37 @@ kable(enroll_and_finish_df, caption = "Enrollment and course finisher percentage
 
 
 
-```{r, echo=FALSE, out.width="65%", fig.align='center', fig.cap="Number of learners by archetype in each run"}
-# Construct the theme for subplot
-common_theme <- theme_minimal() +
+```{r, echo=FALSE, out.width="60%", fig.align='center', fig.cap="Number of learners by archetype in each run"}
+archetype_counts |>
+    ggplot() +
+    geom_bar(
+        aes(x = archetype, y = count, fill = archetype), 
+        stat='identity', 
+        position="dodge"
+    ) +
+    facet_wrap(~run, labeller = as_labeller(
+        c('1' = 'Run 1', '2' = 'Run 2','3' = 'Run 3', '4' = 'Run 4', '5' = 'Run 5', '6' = 'Run 6', '7' = 'Run 7')
+    )) +
+    scale_fill_manual(
+        name = "Archetype",
+        values = c(
+            "Advancers" = "#F08080",
+            "Explorers" = "#DAA520",
+            "Fixers" = "#90EE90",
+            "Flourishers" = "#A7C7E7",
+            "Hobbyists" = "#40E0D0",
+            "Preparers" = "#DDA0DD",
+            "Vitalisers" = "#FF69B4"
+        )
+    ) +
     theme(
-        axis.text.x=element_blank(),
-        axis.ticks.x=element_blank(),
-        legend.position="none", # Remove individual legends
-    )
-
-# Construct the color value representing each archetype for subplot
-common_scale <- scale_fill_manual(
-    name = "Archetype",
-    values = c(
-        "Advancers" = "#F08080",
-        "Explorers" = "#DAA520",
-        "Fixers" = "#90EE90",
-        "Flourishers" = "#A7C7E7",
-        "Hobbyists" = "#40E0D0",
-        "Preparers" = "#DDA0DD",
-        "Vitalisers" = "#FF69B4"
-    )
-)
-
-# Plot a graph of counting number of learners in each archetype for run 3
-a_3 <- archetype_counts |> filter(run=="3") |> 
-    ggplot(aes(x = archetype, y = count, fill = archetype)) + 
-    geom_bar(stat='identity') +
-    common_theme +
-    common_scale +
-    labs(
-        x = "Archetype",
-        y = "Count",
-        title = "Run 3"
-    )
-
-# Plot a graph of counting number of learners in each archetype for run 4
-a_4 <- archetype_counts |> filter(run=="4") |> 
-    ggplot(aes(x = archetype, y = count, fill = archetype)) + 
-    geom_bar(stat='identity') +
-    common_theme +
-    common_scale +
-    labs(
-        x = "Archetype",
-        y = "Count",
-        title = "Run 4"
-    )
-
-# Plot a graph of counting number of learners in each archetype for run 5
-a_5 <- archetype_counts |> filter(run=="5") |> 
-    ggplot(aes(x = archetype, y = count, fill = archetype)) + 
-    geom_bar(stat='identity') +
-    common_theme +
-    common_scale +
-    labs(
-        x = "Archetype",
-        y = "Count",
-        title = "Run 5"
-    )
-
-# Plot a graph of counting number of learners in each archetype for run 6
-a_6 <- archetype_counts |> filter(run=="6") |> 
-    ggplot(aes(x = archetype, y = count, fill = archetype)) + 
-    geom_bar(stat='identity') +
-    common_theme +
-    common_scale +
-    labs(
-        x = "Archetype",
-        y = "Count",
-        title = "Run 6"
-    )
-
-# Plot a graph of counting number of learners in each archetype for run 7
-a_7 <- archetype_counts |> 
-    filter(run=="7") |> 
-    ggplot(aes(x = archetype, y = count, fill = archetype)) +
-    common_theme +
-    geom_bar(stat='identity') +
-    common_scale +
-    labs(
-        x = "Archetype",
-        y = "Count",
-        title = "Run 7"
-    )
-
-# Aggregate the archetype count subplot together
-archetype_plot <- ggarrange(a_3, a_4, a_5, a_6, a_7,  common.legend = TRUE, legend = "bottom")
-
-# Annotate the plot to show and add title to the plot
-annotate_figure(
-  archetype_plot, 
-  top = text_grob(
-          "Number of learners by archetype in each run", 
-          face = "bold", 
-          size = 12, 
-          hjust = 0, 
-          vjust = 0.4, 
-          x = 0
-  )
-)
+        axis.text.x=element_blank()
+    ) +
+    labs(x='Archetype', y='Number of Learner', title = 'Number of learner achetype on each run')
 ```
 
 
-For number of learner archetypes, *Figure 1* shows that the number of each archetype does not distribute evenly among the learners. The top 4 archetypes are *Vitalisers*, *Advancers*, *Explorers* and *Fixers*.
-
-
+For a number of learner archetypes, *Figure 1* shows that runs 1 and 2 do not have archetype data response, and the number of each archetype does not distribute evenly among learners on runs 3 to 7. As runs 1 and 2 do not have the archetype data, which is our primary research focus, run 1 and run 2 will be ignored for the analysis that needs to use an archetype. The top 4 most common archetypes are *Vitalisers*, *Advancers*, *Explorers* and *Fixers*.
 
 
 ## 2.4 Verify Data Quality
@@ -351,62 +277,15 @@ incomplete_learner_archetype[is.na(incomplete_learner_archetype)] <- 0
 As right now we have all data prepared, we will examine our main research topic for this round, **Does the learner archetype affect the course completion rate?**
 
 ## 4.1 Archetype of learners who completed the course
-Let start by take a look at the table below on the archetype of the learner who complete the course.
 
 ```{r, echo=FALSE}
 kable(complete_learner_archetype, caption = "Archetype of the learners who complete the course")
 ```
 
-As mentioned before, only a few people responded to the survey of the archetype, so most learner archetypes are unknown. If we ignore the unknown type, depending on each run, some archetypes perform better than others. 
+Let's start by taking a look at *Table 1* on the archetype of the learner who completes the course. As mentioned before, only a few people responded to the survey of the archetype, so most learner archetypes are unknown. If we ignore the unknown type, depending on each run, some archetypes perform better than others.  
 
 
-
-```{r, include=FALSE}
-# Filter archetype and scale the data by row
-scale_complete <- subset(complete_learner_archetype, select=-c(Run, `NA`)) |>
-    apply(1, scale) |> as.data.frame()
-
-# Add column name
-colnames(scale_complete) <- c('Run 3', 'Run 4', 'Run 5', 'Run 6', 'Run 7')
-
-# Add row name
-rownames(scale_complete) <- c('Advancers', 'Explorers', 'Fixers', 'Flourishers', 'Hobbyists', 'Preparers', 'Vitalisers')
-
-# Update the row name to column archetype
-scale_complete <- tibble::rownames_to_column(scale_complete, "archetype")
-
-# Prepare heatmap data by pivot longer
-heatmap_data <- scale_complete |>
-    pivot_longer(cols = starts_with("Run"),
-                names_to = "Run",
-                values_to = "Scale")
-
-# Plot the heatmap comparing the scale of learner who completed the course
-scale_completion_plot <- ggplot(heatmap_data, aes(x = Run, y = archetype, fill = Scale)) +
-    geom_tile() +
-    scale_fill_viridis_c(option = "A") +
-    theme_minimal() +
-    labs(x = "run")
-
-# Annotate figure
-annotate_figure(
-  scale_completion_plot, 
-  top = text_grob(
-          "Heatmap showing scaled number of learners who complete the course in each run", 
-          face = "bold", 
-          size = 12, 
-          hjust = 0, 
-          vjust = 0.4, 
-          x = 0
-  )
-)
-```
-To compare fairly, *Figure 2* scale the data for each run to have the same unit of learner so that the number of completers can be compared properly throughout different runs. Otherwise, the priority would be given to the run with higher enrolment as higher enrolment leads to a higher chance of having a higher finisher. The brighter colour on the heatmap represents more successful learners in that archetype.
-
-
-The heatmap shows that the *vitalisers* archetype performs best in all runs compared to other archetypes followed by *advancers* and *explorers*, where there are fewer completers in some runs. However, it needs to be tackled whether vitalisers perform better just because most people are *vitalisers* or whether it affects course completion. To check the performance, each archetype's success rate will be compared.
-
-```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Heatmap showing scaled number of learners who complete the course in each run"}
+```{r, echo=FALSE, out.width="60%", fig.align='center', fig.cap="Bar chart shows the number of learners who complete the course in each run"}
 # Prepare data to plot
 number_of_complete_learner_per_archetype <- subset(complete_learner_archetype, select=-c(`NA`)) |>
         pivot_longer(cols = !Run, names_to = "archetype", values_to = "number_of_complete_learner")
@@ -442,6 +321,9 @@ number_of_complete_learner_per_archetype |>
     ) +
     labs(x='Archetype', y='Number of complete learner', title = 'Number of complete learner by archetype on each run')
 ```
+
+
+*Figure 2* is a graphical version of the *Table 3*. From the chart, it is evident that the *vitalisers* archetype performs best in most runs compared to other archetypes followed by *advancers* and *explorers*, where there are fewer completers in some runs. However, it needs to be tackled whether *vitalisers* have more completer just because most people are *vitalisers* or whether the archetype really affects course completion. To check the performance, each archetype's success rate will be compared.
 
 
 ## 4.2 Success rate for each learners' archetype
@@ -553,52 +435,26 @@ This part will explore the time to complete the weekly module without looking at
 
 Ignoring the outlier from the plot, *Figure 3* shows the trend that most learners who complete the course finished the weekly module within a week. Additionally, most people spend less time as the week module number progresses, meaning the week 3 module is completed faster than the week 1. This exploration is promising in that it shows the pattern that most course completers generally finish the course within 1 week, the recommended time frame of the online course, which can boost the online course completion rate.
 
-```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Box plot shows duration the learner spend to learn each weekly module of the course"}
+```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="Box plot shows duration the complete learner spend to learn each weekly module of the course"}
 # Plot the duration spend to learn each weekly module
-boxplot_weekly_module_plot <- weekly_module_time_spent_with_arch |>
+weekly_module_time_spent_with_arch |>
     ggplot() + 
     geom_boxplot(aes(x=week_number, y=duration_in_days_int), outliers = FALSE) +
-    labs(x = "week module no.", y = "duration in days")
-
-# Annotate figure
-annotate_figure(
-  boxplot_weekly_module_plot, 
-  top = text_grob(
-          "Box plot shows duration the learner spend to learn each weekly module", 
-          face = "bold", 
-          size = 12, 
-          hjust = 0, 
-          vjust = 0.4, 
-          x = 0
-  )
-)
+    labs(x = "week module no.", y = "duration in days", title = "Box plot shows duration the learner spend to learn each weekly module")
 ```
 
 ## 4.2 Duration the each learner archetype who complete the course spend on weekly material
 Based on the plot in *Figure 4*, each archetype has a distinct duration to finish the weekly module. Learners from all archetypes mostly take less than 10 days to complete the weekly material. Three archetypes that take less time to study are *flourishers*, *preparers*, *fixers* in which most people took less than 10 days to complete a weekly module. On the contrary, other archetypes that are not mentioned have more variability in the time learners took to complete the module. For example, some of the *explorers* may use a day or a few to complete the course, but some *explorers* also took a month to complete the course.
 
 For the trend that learners spend less time as the week module number progresses that we have explored in *Figure 3*, this trend is still valid in most of the archetypes but not for the *vitalisers* and *fixers* where the learner tends to spend the same amount of time for each weekly module.
-```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="The duration it takes the successful learner to complete weekly module by archetype"}
+```{r, echo=FALSE, out.width="70%", fig.align='center', fig.cap="The duration it takes the complete learner to complete weekly module by archetype"}
 # Plot the duration it takes the successful learner to complete weekly module by archetype
-duration_each_archetype_plot <- weekly_module_time_spent_with_arch |>
+weekly_module_time_spent_with_arch |>
     filter(archetype != '<NA>') |>
     ggplot() + 
     geom_boxplot(aes(x=week_number, y=duration_in_days_int)) +
     facet_grid(. ~ archetype) + 
-    labs(title="The duration it takes the successful learner to complete weekly module by archetype", x ="week module no.", y = "duration in days")
-
-# Annotate figure
-annotate_figure(
-  duration_each_archetype_plot, 
-  top = text_grob(
-          "Box plot shows duration the learner spend to learn each weekly module", 
-          face = "bold", 
-          size = 12, 
-          hjust = 0, 
-          vjust = 0.4, 
-          x = 0
-  )
-)
+    labs(title="The duration it takes learner archetype to complete weekly module", x ="week module no.", y = "duration in days")
 ```
 
 
