@@ -20,3 +20,6 @@ The important files are located in these folders:
 4. Download packages by running `renv::restore()`
 5. Then, go to the reports directory and open the `analysis-report.Rmd` file.
 6. On top of the code section, click `Knit to PDF`, then wait for the PDF to be created and opened.
+
+## Report
+The final report is in the directory reports > analysis-report.pdf
